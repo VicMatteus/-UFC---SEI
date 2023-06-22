@@ -5,10 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Importe seus componentes de tela para as tabs
 import HomeScreen from './screens/HomeScreen';
-// import SettingsScreen from './screens/SettingsScreen';
+import CreateAccountScreen from './screens/CreateAccountScreen';
 import LoginScreen from './screens/LoginScreen';
 
-// const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -16,7 +15,8 @@ function App() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="CriarConta" component={CreateAccountScreen} />
+                <Stack.Screen name="Home" component={HomeScreen} />{/**A home terá o sistema de tabs */}
             </Stack.Navigator>
         </NavigationContainer>
     );

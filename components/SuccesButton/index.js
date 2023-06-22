@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-export default function SuccessButton({ label }) {
+export default function SuccessButton({ label, navegarPara }) {
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={navegarPara}>
             <Text style={styles.buttonLabel}>{label}</Text>
         </TouchableOpacity>
     );

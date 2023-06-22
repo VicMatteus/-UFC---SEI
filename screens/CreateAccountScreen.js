@@ -2,36 +2,79 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
 
-export default function LoginScreen({navigation}) {
+export default function CreateAccountScreen({navigation}) {
     const [email, ChangeEmail] = React.useState('');
     const [password, Changepassword] = React.useState('');
+    const [name, ChangeName] = React.useState('');
+    const [lastName, ChangeLastName] = React.useState('');
+    const [phoneNumber, ChangePhoneNumber] = React.useState('');
+    const [cpf, ChangeCPF] = React.useState('');
 
     //Será usado na manutenção do token da API
-    const [isRememberMe, setRememberMe] = React.useState(false);
-    const toggleSwitch = () => setRememberMe(previousState => !previousState);
+    const [isTermsAndServices, setTermsAndServices] = React.useState(false);
+    const toggleSwitch = () => setTermsAndServices(previousState => !previousState);
 
-    function logar(){
+    function enviarDados(){
+        //Realizar validações: email válido, senha > 8 char, nenhum campo vazio
+        if (!(email && password && name && lastName && phoneNumber && cpf)){
+            alert("Preencha todos os campos!")
+            return
+        }
+        if (password.length<8){
+            alert("Senha deve ser conter mais de 8 caracteres.")
+            return
+        }
+
         userDetails = {
             username: email,
-            password: password 
+            password: password,
+            name: name,
+            lastName: lastName,
+            phoneNumber: phoneNumber,
+            cpf: cpf,
+            TermsAndServices: isTermsAndServices
         }
         userDetails = JSON.stringify(userDetails)
         alert(userDetails)
         //Se API retornar token, prossigo, senão, alerta de erro.
-        navigation.navigate('Home')
+        navigation.navigate('Login')
     }
     
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
-                <Text style={styles.text}>Seja bem-vindo(a) de volta!</Text>
+                <Text style={styles.text}>Faça seu cadastro e tenha acesso aos nosso serviços</Text>
             </View>
+
+            <TextInput style={styles.input}
+                onChangeText={ChangeName}
+                value={name}
+                placeholder='Nome' />
+
+            <TextInput style={styles.input}
+                onChangeText={ChangeLastName}
+                value={lastName}
+                placeholder='Sobrenome' />
 
             <TextInput style={styles.input}
                 onChangeText={ChangeEmail}
                 value={email}
                 keyboardType='email-address'
                 placeholder='Email' />
+
+            <TextInput style={styles.input}
+                onChangeText={ChangePhoneNumber}
+                value={phoneNumber}
+                keyboardType='numeric'
+                maxLength={11}
+                placeholder='Telefone' />
+
+            <TextInput style={styles.input}
+                onChangeText={ChangeCPF}
+                value={cpf}
+                keyboardType='numeric'
+                maxLength={11}
+                placeholder='CPF' />
 
             <TextInput style={styles.input}
                 onChangeText={Changepassword}
@@ -42,25 +85,16 @@ export default function LoginScreen({navigation}) {
             <View style={styles.switchContainer}>
                 <Switch
                     trackColor={{ false: '#767577', true: '#b7d1ff' }}
-                    thumbColor={isRememberMe ? '#f6fff5' : 'gray'}
+                    thumbColor={isTermsAndServices ? '#f6fff5' : 'gray'}
                     onValueChange={toggleSwitch}
-                    value={isRememberMe}
+                    value={isTermsAndServices}
                 />
-                <Text style={styles.switchText}>Mantenha-me conectado</Text>
+                <Text style={styles.switchText}>Ao se inscrever significa que você leu e concorda com os Termos e Condições de Uso e nossa Política de Privacidade.</Text>
             </View>
 
             {/*Faltando realizar validações e bater na api para logar e avançar para*/}
-            <SuccessButton label={"Entrar"} navegarPara={()=>logar()}/>
+            <SuccessButton label={"Criar conta"} navegarPara={()=>enviarDados()}/>
 
-            <TouchableOpacity style={styles.bottomLineContainer} >
-                <Text style={styles.bottomLineLabel}>Esqueceu sua senha?</Text>
-                <Text style={[styles.bottomLineLabel, styles.bottomLineBold]}>Recupere aqui.</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.bottomLineContainer} onPress={()=>navigation.navigate('CriarConta')}>
-                <Text style={styles.bottomLineLabel}>Não possui conta?</Text>
-                <Text style={[styles.bottomLineLabel, styles.bottomLineBold]}>Crie sua conta.</Text>
-            </TouchableOpacity>
         </View>
     );
 }
@@ -96,6 +130,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     switchContainer: {
+        width: '90%',
+        padding: 15,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -103,20 +139,5 @@ const styles = StyleSheet.create({
     switchText: {
         color: '#FFFFFF',
         fontSize: 18,
-    },
-
-    bottomLineContainer:{
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap:3,
-    },
-    bottomLineLabel:
-    {
-        color: '#FFFFFF',
-        fontSize: 14,
-    },
-    bottomLineBold:{
-        fontWeight: 'bold',
     },
 })
