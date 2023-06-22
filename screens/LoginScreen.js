@@ -52,7 +52,7 @@ export default function LoginScreen({navigation}) {
             {/*Faltando realizar validações e bater na api para logar e avançar para*/}
             <SuccessButton label={"Entrar"} navegarPara={()=>logar()}/>
 
-            <TouchableOpacity style={styles.bottomLineContainer} >
+            <TouchableOpacity style={styles.bottomLineContainer} onPress={()=>navigation.navigate('RecuperarConta')} >
                 <Text style={styles.bottomLineLabel}>Esqueceu sua senha?</Text>
                 <Text style={[styles.bottomLineLabel, styles.bottomLineBold]}>Recupere aqui.</Text>
             </TouchableOpacity>
