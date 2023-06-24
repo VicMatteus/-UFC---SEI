@@ -10,10 +10,12 @@ function HomeScreen() {
     return (
         <View style={styles.container}>
             <Header />
-            <Text style={{color:'white'}}>
+            {/* <Text style={{color:'white'}}>
                 {user.name}
-            </Text>
-            <Text style={styles.text}>Escolha um estacionamento:</Text>
+            </Text> */}
+            <View style={styles.textContainer}>
+                <Text style={styles.text}>Escolha um estacionamento:</Text>
+            </View>
             <TouchableOpacity style={styles.parkingButtom}>
                 <Text style={styles.buttomText}>Veja a lista de estacionamentos </Text>
                 <AntDesign name="right" size={24} color="white" />
@@ -29,11 +31,14 @@ const styles = StyleSheet.create({
         alignContent: "center",
         alignItems: "center",
     },
-    text: {
+    textContainer: {
+        alignItems: 'flex-start',
         margin: 10,
+        width: '85%',
+    },
+    text: {
         fontSize: 17,
         color: "white",
-        left: -55,
     },
     parkingButtom: {
         flexDirection: "row",

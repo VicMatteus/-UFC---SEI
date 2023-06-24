@@ -24,7 +24,7 @@ export default function WalletScreen({ navigation }) {
             <View style={styles.ScrollViewContainer}>
                 <ScrollView style={styles.scrollView}>
                     {
-                        payments.map((cartao)=><ItemPagamento lastNumbers={cartao.cardNumber.substr(-4)} status={cartao.status} name={cartao.name} vencimento={cartao.vencimento} />)
+                        payments.map((cartao, index)=><ItemPagamento key={index} number={cartao.cardNumber.substr(-4)} status={cartao.status} name={cartao.name} vencimento={cartao.vencimento} />)
                     }
                 </ScrollView>
             </View>

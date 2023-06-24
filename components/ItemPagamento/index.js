@@ -14,14 +14,27 @@ export default function ItemPagamento({ number, status, name, vencimento }) {
 
     const showAlert = () =>
         Alert.alert(
-            'Deseja remover o cartão de final "'+lastNumbers+'"?',
-            'Esta opção não é reversível.',
+            'Deseja ativar/desativar o cartão de final "'+number.substr(-4)+'"?',
+            '',
             [
                 {
                     text: 'Sim',
                     onPress: () => {
-                        Alert.alert('Sim pressionado')
-                        payments.filter(payment => payment.cardNumber)
+                        // Alert.alert('Sim pressionado')
+                        cartoes = payments
+                        alvo = cartoes.filter(cartao => cartao.cardNumber === number)
+                        if(alvo.length === 1)
+                        {
+                            indice = cartoes.indexOf(alvo[0])
+                            cartoes[indice].status = !cartoes[indice].status; //deveria ser um patch no back
+                            setPayments(cartoes)
+                            console.log("Operação realizada")
+                        }
+                        else if(alvo.length>1)
+                        {
+                            console.log("Cartão já inativo.")
+                        }
+
                     },
                 },
                 {

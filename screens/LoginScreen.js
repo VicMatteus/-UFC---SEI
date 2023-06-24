@@ -9,8 +9,8 @@ import db from '../db.json'
 export default function LoginScreen({ navigation }) {
     const { user, ChangeUser } = useUserStore()
 
-    const [email, ChangeEmail] = React.useState('');
-    const [password, Changepassword] = React.useState('');
+    const [email, ChangeEmail] = React.useState('A@gmail.com'); //valores colocados aqui só pra facilitar desenvolvimento
+    const [password, Changepassword] = React.useState('12345678');
 
     //Será usado na manutenção do token da API
     const [isRememberMe, setRememberMe] = React.useState(false);

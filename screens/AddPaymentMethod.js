@@ -4,10 +4,10 @@ import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
 
 export default function AddPaymentMethod({ navigation }) {
-    const [name, ChangeName] = React.useState('');
-    const [cardNumber, ChangeCardNumber] = React.useState('');
-    const [vencimento, ChangeVencimento] = React.useState('');
-    const [cvv, ChangeCVV] = React.useState('');
+    const [name, ChangeName] = React.useState('vitor');
+    const [cardNumber, ChangeCardNumber] = React.useState('3333');
+    const [vencimento, ChangeVencimento] = React.useState('23/2026');
+    const [cvv, ChangeCVV] = React.useState('333');
     
     const {user, ChangeUser, payments, setPayments} = useUserStore();
 
