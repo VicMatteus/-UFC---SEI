@@ -18,10 +18,10 @@ function App() {
         // (isLoggedIn ? 
             <NavigationContainer>
                 <Stack.Navigator>
-                    <Stack.Screen name="Login" component={LoginScreen} />
-                    <Stack.Screen name="CriarConta" component={CreateAccountScreen} />
-                    <Stack.Screen name="RecuperarConta" component={RecoverScreen} />
-                    <Stack.Screen name="Router" component={TabRouter} />
+                    <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown:false }}/>
+                    <Stack.Screen name="CriarConta" component={CreateAccountScreen} options={{ headerShown:false }}/>
+                    <Stack.Screen name="RecuperarConta" component={RecoverScreen} options={{ headerShown:false }}/>
+                    <Stack.Screen name="Router" component={TabRouter} options={{ headerShown:false }}/>
                 </Stack.Navigator>
             </NavigationContainer>
         // :
