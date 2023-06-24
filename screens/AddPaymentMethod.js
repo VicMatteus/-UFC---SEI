@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
+import { useUserStore } from '../store';
 
 export default function AddPaymentMethod({ navigation }) {
     const [name, ChangeName] = React.useState('');
     const [cardNumber, ChangeCardNumber] = React.useState('');
     const [vencimento, ChangeVencimento] = React.useState('');
     const [cvv, ChangeCVV] = React.useState('');
+    
+    const {user, ChangeUser, payments, setPayments} = useUserStore();
 
     function enviarDados() {
         //Realizar validações: nenhum campo vazio
@@ -23,11 +26,13 @@ export default function AddPaymentMethod({ navigation }) {
             name: name,
             cardNumber: cardNumber,
             cvv: cvv,
-            vencimento: vencimento
+            vencimento: vencimento,
+            status: true
         }
-        userDetails = JSON.stringify(userDetails)
+        // userDetails = JSON.stringify(userDetails)
         console.log(paymentDetails)
-
+        setPayments([...payments, paymentDetails])
+        console.log(payments)
         //Se API retornar token, prossigo, senão, alerta de erro.
         navigation.navigate('Wallet')
     }

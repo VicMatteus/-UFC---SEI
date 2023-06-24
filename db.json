@@ -1,0 +1,30 @@
+    [
+        {
+            "username": "A@gmail.com",
+            "password": "12345678",
+            "name": "Vitor",
+            "lastName": "Mateus",
+            "phoneNumber": "85992859999",
+            "cpf": "0090912345",
+            "TermsAndServices": true
+        },
+        {
+            "username": "b@gmail.com",
+            "password": "12345678",
+            "name": "jonh",
+            "lastName": "dow",
+            "phoneNumber": "85992859999",
+            "cpf": "0090912345",
+            "TermsAndServices": true
+        },
+        {
+            "RememberMe": false,
+            "TermsAndServices": true,
+            "cpf": "94676797876",
+            "lastName": "Pereira",
+            "name": "Karen",
+            "password": "12345678",
+            "phoneNumber": "85995260579",
+            "username": "C@gmail.com"
+        }
+    ]

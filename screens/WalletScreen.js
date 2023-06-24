@@ -1,17 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import { useBearStore } from "../store";
 import Header from "../components/header";
 import ItemPagamento from "../components/ItemPagamento";
-
+import { useUserStore } from "../store";
 
 export default function WalletScreen({ navigation }) {
-    const { bears, increasePopulation, removeAllBears } = useBearStore() //apenas para testes
+    const {user, ChangeUser, payments, setPayments} = useUserStore();
 
     function handleClick() {
         navigation.navigate('AddPaymentMethod')
-        increasePopulation()
     }
     return (
         <View style={styles.container}>
@@ -25,11 +23,9 @@ export default function WalletScreen({ navigation }) {
             </TouchableOpacity>
             <View style={styles.ScrollViewContainer}>
                 <ScrollView style={styles.scrollView}>
-                    <ItemPagamento lastNumbers='1234' status={true} name="Jonh Doe" vencimento='01/2024' />
-                    <ItemPagamento lastNumbers='1234' status={true} name="Jonh Doe" vencimento='01/2024' />
-                    <ItemPagamento lastNumbers='1234' status={true} name="Jonh Doe" vencimento='01/2024' />
-                    <ItemPagamento lastNumbers='1234' status={true} name="Jonh Doe" vencimento='01/2024' />
-                    <ItemPagamento lastNumbers='4321' status={false} name="Maria Kelly" vencimento='01/2024' />
+                    {
+                        payments.map((cartao)=><ItemPagamento lastNumbers={cartao.cardNumber.substr(-4)} status={cartao.status} name={cartao.name} vencimento={cartao.vencimento} />)
+                    }
                 </ScrollView>
             </View>
         </View>

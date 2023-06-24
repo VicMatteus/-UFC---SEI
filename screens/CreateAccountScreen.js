@@ -1,18 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
+import { useUserStore } from '../store';
 
 export default function CreateAccountScreen({navigation}) {
-    const [email, ChangeEmail] = React.useState('');
-    const [password, Changepassword] = React.useState('');
-    const [name, ChangeName] = React.useState('');
-    const [lastName, ChangeLastName] = React.useState('');
-    const [phoneNumber, ChangePhoneNumber] = React.useState('');
-    const [cpf, ChangeCPF] = React.useState('');
+    const [email       , ChangeEmail]       = React.useState('');
+    const [password    , Changepassword]    = React.useState('');
+    const [name        , ChangeName]        = React.useState('');
+    const [lastName    , ChangeLastName]    = React.useState('');
+    const [phoneNumber , ChangePhoneNumber] = React.useState('');
+    const [cpf         , ChangeCPF]         = React.useState('');
 
     //Será usado na manutenção do token da API
     const [isTermsAndServices, setTermsAndServices] = React.useState(false);
     const toggleSwitch = () => setTermsAndServices(previousState => !previousState);
+
+    const {user, ChangeUser} = useUserStore();
 
     function enviarDados(){
         //Realizar validações: email válido, senha > 8 char, nenhum campo vazio
@@ -32,11 +35,15 @@ export default function CreateAccountScreen({navigation}) {
             lastName: lastName,
             phoneNumber: phoneNumber,
             cpf: cpf,
-            TermsAndServices: isTermsAndServices
+            TermsAndServices: isTermsAndServices,
+            RememberMe:false
         }
-        userDetails = JSON.stringify(userDetails)
-        alert(userDetails)
+        // userDetails = JSON.stringify(userDetails)
+        console.log(userDetails)
+        ChangeUser(userDetails)
+        console.log(user)
         //Se API retornar token, prossigo, senão, alerta de erro.
+
         navigation.navigate('Login')
     }
     

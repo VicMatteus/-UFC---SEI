@@ -1,8 +1,14 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
+import { useUserStore } from '../store';
 
-export default function LoginScreen({navigation}) {
+//simular acesso ao banco
+import db from '../db.json'
+
+export default function LoginScreen({ navigation }) {
+    const { user, ChangeUser } = useUserStore()
+
     const [email, ChangeEmail] = React.useState('');
     const [password, Changepassword] = React.useState('');
 
@@ -10,17 +16,33 @@ export default function LoginScreen({navigation}) {
     const [isRememberMe, setRememberMe] = React.useState(false);
     const toggleSwitch = () => setRememberMe(previousState => !previousState);
 
-    function logar(){
+    // React.useEffect(() => {
+    // },[]);
+
+    function logar() {
         userDetails = {
             username: email,
-            password: password 
+            password: password
         }
-        userDetails = JSON.stringify(userDetails)
-        console.log(userDetails)
+        // userDetails = JSON.stringify(userDetails) //isso seria pra enviar para a api
+
+        achou = db.filter((user) => user.username === email && user.password === password)
+        if (achou.length === 0) {
+            console.log("Usuario não encontrado")
+            alert("Usuario não encontrado.")
+            return
+        }
+        if (!isRememberMe) {
+            ChangeEmail('')
+            Changepassword('')
+        }
+        console.log("Achou o usuário.")
+        ChangeUser(achou[0]) //Defino como usuário ativo no momento.
+
         //Se API retornar token, prossigo, senão, alerta de erro.
         navigation.navigate('Router')
     }
-    
+
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
@@ -46,18 +68,18 @@ export default function LoginScreen({navigation}) {
                     onValueChange={toggleSwitch}
                     value={isRememberMe}
                 />
-                <Text style={styles.switchText}>Mantenha-me conectado</Text>
+                <Text style={styles.switchText}>Lembre de mim</Text>
             </View>
 
             {/*Faltando realizar validações e bater na api para logar e avançar para*/}
-            <SuccessButton label={"Entrar"} navegarPara={()=>logar()}/>
+            <SuccessButton label={"Entrar"} navegarPara={() => logar()} />
 
-            <TouchableOpacity style={styles.bottomLineContainer} onPress={()=>navigation.navigate('RecuperarConta')} >
+            <TouchableOpacity style={styles.bottomLineContainer} onPress={() => navigation.navigate('RecuperarConta')} >
                 <Text style={styles.bottomLineLabel}>Esqueceu sua senha?</Text>
                 <Text style={[styles.bottomLineLabel, styles.bottomLineBold]}>Recupere aqui.</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.bottomLineContainer} onPress={()=>navigation.navigate('CriarConta')}>
+            <TouchableOpacity style={styles.bottomLineContainer} onPress={() => navigation.navigate('CriarConta')}>
                 <Text style={styles.bottomLineLabel}>Não possui conta?</Text>
                 <Text style={[styles.bottomLineLabel, styles.bottomLineBold]}>Crie sua conta.</Text>
             </TouchableOpacity>
@@ -105,18 +127,18 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 
-    bottomLineContainer:{
+    bottomLineContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        gap:3,
+        gap: 3,
     },
     bottomLineLabel:
     {
         color: '#FFFFFF',
         fontSize: 14,
     },
-    bottomLineBold:{
+    bottomLineBold: {
         fontWeight: 'bold',
     },
 })
