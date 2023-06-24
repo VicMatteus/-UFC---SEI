@@ -16,7 +16,7 @@ export default function LoginScreen({navigation}) {
             password: password 
         }
         userDetails = JSON.stringify(userDetails)
-        alert(userDetails)
+        console.log(userDetails)
         //Se API retornar token, prossigo, senão, alerta de erro.
         navigation.navigate('Router')
     }

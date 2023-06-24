@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 20,
+    width: '100%',
   },
   headerText: {
     fontFamily: "monospace",

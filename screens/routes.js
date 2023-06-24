@@ -1,5 +1,4 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from '@react-navigation/native';
 
 import HomeScreen from "./HomeScreen";
 import HistoryScreen from "./HistoryScreen";
@@ -22,61 +21,53 @@ function CustomTabItem({ color, icon, label }) {
 function TabNavigation() {
     return (
         // <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={{
-                    tabBarStyle: {
-                        height: 80,
-                        width: "100%",
-                        alignContent: "center",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        backgroundColor: "#1c1c1c",
-                        borderTopWidth: 0,
-                    },
-                    tabBarShowLabel: false,
-                    headerShown: false,
-                }}
-            >
-                <Tab.Screen
-                    name="Home"
-                    component={HomeScreen}
-                    options={{
-                        tabBarIcon: ({ color, size, focused }) => {
-                            if (focused) {
-                                return (
-                                    <CustomTabItem
-                                        label="Início"
-                                        color={color}
-                                        icon={<Ionicons name="home" color={color} size={size} />}
-                                    />
-                                );
-                            }
+        <Tab.Navigator
+            screenOptions={{
+                tabBarStyle: {
+                    height: 80,
+                    width: "100%",
+                    alignContent: "center",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#1c1c1c",
+                    borderTopWidth: 0,
+                },
+                tabBarShowLabel: false,
+                headerShown: false,
+            }}
+        >
+            <Tab.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    tabBarIcon: ({ color, size, focused }) => {
+                        if (focused) {
                             return (
                                 <CustomTabItem
                                     label="Início"
                                     color={color}
-                                    icon={
-                                        <Ionicons name="home-outline" color={color} size={size} />
-                                    }
+                                    icon={<Ionicons name="home" color={color} size={size} />}
                                 />
                             );
-                        },
-                    }}
-                />
-                <Tab.Screen
-                    name="History"
-                    component={HistoryScreen}
-                    options={{
-                        tabBarIcon: ({ color, size, focused }) => {
-                            if (focused) {
-                                return (
-                                    <CustomTabItem
-                                        label="Histórico"
-                                        color={color}
-                                        icon={<FontAwesome5 name="history" size={24} color={color} />}
-                                    />
-                                );
-                            }
+                        }
+                        return (
+                            <CustomTabItem
+                                label="Início"
+                                color={color}
+                                icon={
+                                    <Ionicons name="home-outline" color={color} size={size} />
+                                }
+                            />
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name="History"
+                component={HistoryScreen}
+                options={{
+                    tabBarIcon: ({ color, size, focused }) => {
+                        if (focused) {
                             return (
                                 <CustomTabItem
                                     label="Histórico"
@@ -84,66 +75,74 @@ function TabNavigation() {
                                     icon={<FontAwesome5 name="history" size={24} color={color} />}
                                 />
                             );
-                        },
-                    }}
-                />
-                <Tab.Screen
-                    name="Wallet"
-                    component={WalletScreen}
-                    options={{
-                        tabBarIcon: ({ color, size, focused }) => {
-                            if (focused) {
-                                return (
-                                    <CustomTabItem
-                                        label="Carteira"
-                                        color={color}
-                                        icon={<Ionicons name="wallet" color={color} size={size} />}
-                                    />
-                                );
-                            }
+                        }
+                        return (
+                            <CustomTabItem
+                                label="Histórico"
+                                color={color}
+                                icon={<FontAwesome5 name="history" size={24} color={color} />}
+                            />
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name="Wallet"
+                component={WalletScreen}
+                options={{
+                    tabBarIcon: ({ color, size, focused }) => {
+                        if (focused) {
                             return (
                                 <CustomTabItem
                                     label="Carteira"
                                     color={color}
-                                    icon={
-                                        <Ionicons name="wallet-outline" color={color} size={size} />
-                                    }
+                                    icon={<Ionicons name="wallet" color={color} size={size} />}
                                 />
                             );
-                        },
-                    }}
-                />
-                <Tab.Screen
-                    name="Vehicles"
-                    component={VehiclesScreen}
-                    options={{
-                        tabBarIcon: ({ color, size, focused }) => {
-                            if (focused) {
-                                return (
-                                    <CustomTabItem
-                                        label="Veículos"
-                                        color={color}
-                                        icon={<Ionicons name="car-sport" color={color} size={size} />}
-                                    />
-                                );
-                            }
+                        }
+                        return (
+                            <CustomTabItem
+                                label="Carteira"
+                                color={color}
+                                icon={
+                                    <Ionicons name="wallet-outline" color={color} size={size} />
+                                }
+                            />
+                        );
+                    },
+                }}
+            />
+            <Tab.Screen
+                name="Vehicles"
+                component={VehiclesScreen}
+                options={{
+                    tabBarIcon: ({ color, size, focused }) => {
+                        if (focused) {
                             return (
                                 <CustomTabItem
                                     label="Veículos"
                                     color={color}
-                                    icon={
-                                        <Ionicons
-                                            name="car-sport-outline"
-                                            color={color}
-                                            size={size}
-                                        />
-                                    }
+                                    icon={<Ionicons name="car-sport" color={color} size={size} />}
                                 />
                             );
-                        },
-                    }}
-                />
-            </Tab.Navigator>
+                        }
+                        return (
+                            <CustomTabItem
+                                label="Veículos"
+                                color={color}
+                                icon={
+                                    <Ionicons
+                                        name="car-sport-outline"
+                                        color={color}
+                                        size={size}
+                                    />
+                                }
+                            />
+                        );
+                    },
+                }}
+            />
+        </Tab.Navigator>
         // </NavigationContainer>
     );
 }
