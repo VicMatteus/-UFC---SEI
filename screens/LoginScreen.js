@@ -18,7 +18,7 @@ export default function LoginScreen({navigation}) {
         userDetails = JSON.stringify(userDetails)
         alert(userDetails)
         //Se API retornar token, prossigo, senão, alerta de erro.
-        navigation.navigate('Home')
+        navigation.navigate('Router')
     }
     
     return (

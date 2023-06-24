@@ -4,7 +4,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Header from "../components/header";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import RegisterVehicleScreen from "./RegisterVehicleScreen";
 
 const RegisterVehicleButton = () => {
   const navigation = useNavigation();

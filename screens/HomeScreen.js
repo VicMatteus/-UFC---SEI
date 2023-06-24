@@ -1,4 +1,3 @@
-// HomeScreen.js
 import * as React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Header from "../components/header";
