@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useUserStore } from "../../store";
 
-export default function ItemPagamento({ lastNumbers, status, name, vencimento }) {
+
+export default function ItemPagamento({ number, status, name, vencimento }) {
+    const {user, ChangeUser, payments, setPayments} = useUserStore();
+
     function verificarStatus() {
         let statusStyles = [styles.info]
         status === true ? statusStyles.push(styles.statusAtivo) : statusStyles.push(styles.statusInativo)
@@ -15,7 +19,10 @@ export default function ItemPagamento({ lastNumbers, status, name, vencimento })
             [
                 {
                     text: 'Sim',
-                    onPress: () => Alert.alert('Sim pressionado'),
+                    onPress: () => {
+                        Alert.alert('Sim pressionado')
+                        payments.filter(payment => payment.cardNumber)
+                    },
                 },
                 {
                     text: 'Não',
@@ -29,7 +36,7 @@ export default function ItemPagamento({ lastNumbers, status, name, vencimento })
     return (
         <TouchableOpacity style={styles.container} onPress={() => showAlert()}>
             <View style={styles.linha1}>
-                <Text style={styles.info}>Final: {lastNumbers}</Text>
+                <Text style={styles.info}>Final: {number.substr(-4)}</Text>
                 <Text style={verificarStatus()}>{status ? 'Ativo' : 'Inativo'}</Text>
             </View>
             <Text style={styles.info}>Nome: {name}</Text>
