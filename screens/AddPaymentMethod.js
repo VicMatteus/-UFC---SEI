@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
-import DatePicker from 'react-native-datepicker'
 
 export default function AddPaymentMethod({ navigation }) {
     const [name, ChangeName] = React.useState('');
@@ -59,19 +58,21 @@ export default function AddPaymentMethod({ navigation }) {
                 maxLength={11}
                 placeholder='Número do cartão' />
 
-            <TextInput style={styles.input}
-                onChangeText={formatarData}
-                value={vencimento}
-                keyboardType='numeric'
-                maxLength={7}
-                placeholder='Data de vencimento(DD/AAAA)' />
+            <View style={styles.linhaCVVeDate}>
+                <TextInput style={[styles.input, styles.dateInput]}
+                    onChangeText={formatarData}
+                    value={vencimento}
+                    keyboardType='numeric'
+                    maxLength={7}
+                    placeholder='Data de vencimento(DD/AAAA)' />
 
-            <TextInput style={[styles.input]}
-                onChangeText={ChangeCVV}
-                value={cvv}
-                keyboardType='numeric'
-                maxLength={3}
-                placeholder='Código de segurança' />
+                <TextInput style={[styles.input, styles.cvvInput]}
+                    onChangeText={ChangeCVV}
+                    value={cvv}
+                    keyboardType='numeric'
+                    maxLength={3}
+                    placeholder='CVV' />
+            </View>
 
             {/*Faltando realizar validações e bater na api para logar e avançar para*/}
             <SuccessButton label={"Adicionar método de pagamento"} navegarPara={() => enviarDados()} />
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     textContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: '90%',
+        width: '98%',
     },
     text: {
         // fontFamily: 'Cochin', //Depois ver se é realmente necessário usar fontes diferentes, pq tem q importar.
@@ -99,12 +100,14 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         fontWeight: 'bold',
+        marginVertical:10
     },
     label:
     {
         color: '#FFFFFF',
         textAlign:'center',
         fontSize: 14,
+        marginVertical:10
     },
     input: {
         borderWidth: 1,
@@ -116,15 +119,15 @@ const styles = StyleSheet.create({
         borderColor: '#FFFFFF',
         backgroundColor: '#FFFFFF',
     },
-    switchContainer: {
-        width: '90%',
-        padding: 15,
+    linhaCVVeDate:{
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
+        width: '90%',
+        gap: 10
     },
-    switchText: {
-        color: '#FFFFFF',
-        fontSize: 18,
+    dateInput:{
+        width: '77%',
+    },
+    cvvInput:{
+        width: '20%',
     },
 })
