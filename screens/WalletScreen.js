@@ -21,6 +21,11 @@ export default function WalletScreen({ navigation }) {
                 <Text style={styles.buttonText}>Adicionar método de pagamento</Text>
                 <AntDesign name="right" size={24} color="white" />
             </TouchableOpacity>
+
+            <View style={styles.textContainer}>
+                {payments.length > 0 ? <Text style={styles.text}>Métodos disponíveis:</Text> : <></>}
+            </View>
+            
             <View style={styles.ScrollViewContainer}>
                 <ScrollView style={styles.scrollView}>
                     {
