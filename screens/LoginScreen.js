@@ -2,22 +2,68 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //simular acesso ao banco
 import db from '../db.json'
 
+// Para armazenar um valor
+const storeData = async (valor) => {
+    try {
+        valor = JSON.stringify(valor)
+        await AsyncStorage.setItem('user', valor);
+        console.log('Dados armazenados com sucesso!');
+    } catch (error) {
+        console.log('Erro ao armazenar os dados: ', error);
+    }
+};
+
+// Para remover um valor
+const removeData = async (chave) => {
+    try {
+        await AsyncStorage.removeItem(chave);
+        console.log('Dados removidos com sucesso!');
+    } catch (error) {
+        console.log('Erro ao remover os dados: ', error);
+    }
+};
+
 export default function LoginScreen({ navigation }) {
     const { user, ChangeUser } = useUserStore()
 
-    const [email, ChangeEmail] = React.useState('A@gmail.com'); //valores colocados aqui só pra facilitar desenvolvimento
-    const [password, Changepassword] = React.useState('12345678');
+    const [email, ChangeEmail] = React.useState(''); //valores colocados aqui só pra facilitar desenvolvimento
+    const [password, Changepassword] = React.useState('');
 
     //Será usado na manutenção do token da API
     const [isRememberMe, setRememberMe] = React.useState(false);
     const toggleSwitch = () => setRememberMe(previousState => !previousState);
 
-    // React.useEffect(() => {
-    // },[]);
+    const retrieveData = async () => {
+        try {
+            const value = await AsyncStorage.getItem('user');
+            if (value !== null) {
+                let oValue = JSON.parse(value);
+                console.log('Valor recuperado: ', oValue);
+    
+                //acho que agora, seria o fetch e salvar o usuario retornado da api, além do token
+    
+                //Coloco eles no contexto global
+                ChangeUser({ username: oValue.email, password: oValue.password })
+    
+                //Já dou um navigate para a tela de home?
+                navigation.navigate('Router')
+            } else {
+                console.log('Nenhum valor encontrado para a chave fornecida.');
+                return
+            }
+        } catch (error) {
+            console.log('Erro ao recuperar os dados: ', error);
+        }
+    };
+
+    React.useEffect(() => {
+        retrieveData();
+    }, []);
 
     function logar() {
         userDetails = {
@@ -32,12 +78,15 @@ export default function LoginScreen({ navigation }) {
             alert("Usuario não encontrado.")
             return
         }
+        console.log("Achou o usuário.")
+        // ChangeUser(achou[0]) //Defino como usuário ativo no momento.
+        storeData({ email: email, password: password })
+
         if (!isRememberMe) {
             ChangeEmail('')
             Changepassword('')
+            removeData('user')
         }
-        console.log("Achou o usuário.")
-        ChangeUser(achou[0]) //Defino como usuário ativo no momento.
 
         //Se API retornar token, prossigo, senão, alerta de erro.
         navigation.navigate('Router')

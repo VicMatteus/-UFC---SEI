@@ -1,11 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import Header from "../components/header";
+import SideBar from "../components/Sidebar";
 import { AntDesign } from "@expo/vector-icons";
 import { useUserStore } from "../store";
 
+
 function HomeScreen() {
-    const {user, ChangeUser} = useUserStore(); //Possui os dados do usuário.
+    // const {user, ChangeUser} = useUserStore(); //Possui os dados do usuário.
+    const {isDrawerOpen} = useUserStore();
 
     return (
         <View style={styles.container}>
@@ -20,6 +23,7 @@ function HomeScreen() {
                 <Text style={styles.buttomText}>Veja a lista de estacionamentos </Text>
                 <AntDesign name="right" size={24} color="white" />
             </TouchableOpacity>
+            {isDrawerOpen && <SideBar />}
         </View>
     );
 }

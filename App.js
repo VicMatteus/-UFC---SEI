@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react';7
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -8,7 +9,7 @@ import CreateAccountScreen from './screens/CreateAccountScreen';
 import RecoverScreen from './screens/RecoverScreen';
 import LoginScreen from './screens/LoginScreen';
 import AddPaymentMethod from './screens/AddPaymentMethod';
-
+import Side from './screens/side';
 const Stack = createNativeStackNavigator();
 
 function App() {

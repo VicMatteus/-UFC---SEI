@@ -9,4 +9,6 @@ export const useUserStore = create((set) => ({
     setPayments:(payments) => set({payments:payments}),
     // increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
     // removeAllBears: () => set({ bears: 0 }),
+    isDrawerOpen: false,
+    toggleDrawer: () => set((state)=>{isDrawerOpen: !state.isDrawerOpen}), //
 }))
