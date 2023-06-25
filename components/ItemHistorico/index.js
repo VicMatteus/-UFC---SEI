@@ -6,7 +6,7 @@ export default function ItemHistorico({ data, entrada, saida, veiculo, valor }) 
     const {user, ChangeUser, payments, setPayments} = useUserStore();
 
     return (
-        <TouchableOpacity style={styles.container} onPress={() => showAlert()}>
+        <TouchableOpacity style={styles.container} onPress={() => console.log('Item pressionado')}>
             <View style={styles.linha1}>
                 <Text style={styles.info}>Data: {data}</Text>
                 <Text style={styles.info}>Entrada: {entrada}</Text>

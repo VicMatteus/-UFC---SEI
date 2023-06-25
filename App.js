@@ -9,7 +9,6 @@ import CreateAccountScreen from './screens/CreateAccountScreen';
 import RecoverScreen from './screens/RecoverScreen';
 import LoginScreen from './screens/LoginScreen';
 import AddPaymentMethod from './screens/AddPaymentMethod';
-import Side from './screens/side';
 const Stack = createNativeStackNavigator();
 
 function App() {

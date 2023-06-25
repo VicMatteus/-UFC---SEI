@@ -22,7 +22,7 @@ function Header() {
             <View style={styles.header}>
                 <View style={styles.headerLeft}>
                     <View>
-                        <Entypo name="menu" size={38} color="white" onPress={alternarDrawer} />
+                        <Entypo name="menu" size={38} color="white" onPress={()=>alert("Side")} />
                     </View>
                     <Text style={styles.headerText}> SEI </Text>
                 </View>
@@ -31,7 +31,6 @@ function Header() {
                     <BookButtom />
                 </View>
             </View>
-        // </DrawerLayoutAndroid>
     );
 }
 const styles = StyleSheet.create({
