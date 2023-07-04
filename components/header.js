@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Alert, useState } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useUserStore } from "../store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Api from "../Api";
 
 function BookButtom() {
     return (
@@ -21,8 +22,24 @@ const removeData = async (chave) => {
     }
 };
 
+//Lembrar de trocar endereço da url base
+async function fetchApi(token) {
+    const response = await Api({
+        method: 'delete',
+        url: '/logout',
+        headers: {'Authorization': token}
+    })
+    .then(function (response) {
+        console.log(response.status);
+        console.log(response.data.message);
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+}
+
 function Header({ navigation }) {
-    const { ChangeUser } = useUserStore()
+    const { user, ChangeUser } = useUserStore()
 
     const showAlert = () =>
         Alert.alert(
@@ -33,6 +50,7 @@ function Header({ navigation }) {
                     text: 'Sim',
                     onPress: () => {
                         //Chamar api de deslogar, remover user da local storage, navegar para tela de login
+                        fetchApi(user.token)
                         removeData('user');
                         ChangeUser({});
                         navigation.navigate('Login');

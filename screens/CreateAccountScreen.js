@@ -18,10 +18,24 @@ export default function CreateAccountScreen({ navigation }) {
     const toggleSwitch = () => setTermsAndServices(previousState => !previousState);
 
     const { user, ChangeUser } = useUserStore();
-
+//Lembrar de trocar endereço da url base
+async function fetchApiLogOut() {
+    const response = await Api({
+        method: 'delete',
+        url: '/logout',
+        // headers: {'Authorization': token}
+    })
+    .then(function (response) {
+        console.log(response.status);
+        console.log(response.data.message);
+    })
+    .catch(function (error) {
+        console.error(error);
+    });
+}
     function enviarDados() {
         //Realizar validações: email válido, senha > 8 char, nenhum campo vazio
-        if (!(email && password && name && lastName && phoneNumber && cpf)) {
+        if (!(email && password && name && lastName && phoneNumber && cpf && isTermsAndServices)) {
             alert("Preencha todos os campos!")
             return
         }
@@ -51,6 +65,7 @@ export default function CreateAccountScreen({ navigation }) {
                 console.log(response.status);
                 console.log(response.data.message);
                 alert(response.data.message)
+                fetchApiLogOut()//feito para não redirecionar direto para tela de home, requer login antes.
                 navigation.navigate('Login')
             })
             .catch(function (error) {

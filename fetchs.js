@@ -91,42 +91,42 @@ var token = ''
 // });
 
 
-async function fetchApi() {
-    userDetails = {
-        'email': 'email@example.com',
-        'password': '12345678'
-    }
-    const response = await axios.post('http://localhost:3001/login', {
-        client: userDetails
-    })
-        .then(function (response) {
-            // if (response.status === 200) {
-                console.log(response.status);
-                // token = response.headers.authorization;
-                // console.log('Token: ' + token); //Recupera o Token após logar.
-                // console.log(response.data.message);
-                // storeData({ email: email, password: password, token: token })
-                // ChangeUser({ email: email, password: password, token: token }) //Defino como usuário ativo no momento.
+// async function fetchApi() {
+//     userDetails = {
+//         'email': 'email@example.com',
+//         'password': '12345678'
+//     }
+//     const response = await axios.post('http://localhost:3001/login', {
+//         client: userDetails
+//     })
+//         .then(function (response) {
+//             // if (response.status === 200) {
+//                 console.log(response.status);
+//                 // token = response.headers.authorization;
+//                 // console.log('Token: ' + token); //Recupera o Token após logar.
+//                 // console.log(response.data.message);
+//                 // storeData({ email: email, password: password, token: token })
+//                 // ChangeUser({ email: email, password: password, token: token }) //Defino como usuário ativo no momento.
 
-                // if (!isRememberMe) {
-                //     ChangeEmail('')
-                //     Changepassword('')
-                //     removeData('user')
-                // }
+//                 // if (!isRememberMe) {
+//                 //     ChangeEmail('')
+//                 //     Changepassword('')
+//                 //     removeData('user')
+//                 // }
 
-                //Se API retornar token, prossigo, senão, alerta de erro.
-                // navigation.navigate('Router')
-            // }
-            // else {
-            //     alert("Usuário ou senha inválidos.")
-            //     return;
-            // }
-        })
-        .catch(function (error) {
-            console.error(error.response.status);
-            console.log("Erro ao logar com usuario: ")
-        });
-}
+//                 //Se API retornar token, prossigo, senão, alerta de erro.
+//                 // navigation.navigate('Router')
+//             // }
+//             // else {
+//             //     alert("Usuário ou senha inválidos.")
+//             //     return;
+//             // }
+//         })
+//         .catch(function (error) {
+//             console.error(error.response.status);
+//             console.log("Erro ao logar com usuario: ")
+//         });
+// }
 
-response = fetchApi()
+// response = fetchApi()
 

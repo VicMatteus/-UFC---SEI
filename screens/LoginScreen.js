@@ -85,13 +85,13 @@ export default function LoginScreen({ navigation }) {
                 token = response.headers.authorization;
                 console.log('Token: ' + token); //Recupera o Token após logar.
                 console.log(response.data.message);
-                storeData({ email: email, password: password, token: token })
                 ChangeUser({ email: email, password: password, token: token }) //Defino como usuário ativo no momento.
-
-                if (!isRememberMe) {
-                    ChangeEmail('')
-                    Changepassword('')
-                    removeData('user')
+                ChangeEmail('')
+                Changepassword('')
+                
+                if (isRememberMe) {
+                    storeData({ email: email, password: password, token: token })
+                    // removeData('user')
                 }
 
                 //Se API retornar token, prossigo, senão, alerta de erro.
