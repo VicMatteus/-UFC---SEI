@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
+import Api from '../Api';
 
 export default function AddPaymentMethod({ navigation }) {
     const [name, ChangeName] = React.useState('vitor');
     const [cardNumber, ChangeCardNumber] = React.useState('3333');
     const [vencimento, ChangeVencimento] = React.useState('23/2026');
     const [cvv, ChangeCVV] = React.useState('333');
-    
-    const {user, ChangeUser, payments, setPayments} = useUserStore();
+    const [clienteAtual, SetClienteAtual] = React.useState({});
 
+    const { user, ChangeUser, payments, setPayments } = useUserStore();
+
+    React.useEffect(() => {
+        fetch("http://192.168.88.91:3001/current_client")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.id)
+            SetClienteAtual(data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }, [])
+    
     function enviarDados() {
         //Realizar validações: nenhum campo vazio
         if (!(name && cardNumber && vencimento && cvv)) {
@@ -22,19 +36,47 @@ export default function AddPaymentMethod({ navigation }) {
             return
         }
 
+        console.log("Cliente"+clienteAtual)
         paymentDetails = {
-            name: name,
-            cardNumber: cardNumber,
-            cvv: cvv,
-            vencimento: vencimento,
-            status: true
+            cardholder_name: name,
+            card_number: cardNumber,
+            validity: vencimento,
+            security_code: cvv,
+            client_id: clienteAtual.id
         }
+        console.log("payment details: "+paymentDetails)
+        salvarMetodo(paymentDetails);
         // userDetails = JSON.stringify(userDetails)
-        console.log(paymentDetails)
-        setPayments([...payments, paymentDetails])
-        console.log(payments)
+        // console.log(paymentDetails)
+        // setPayments([...payments, paymentDetails])
+        // console.log(payments)
         //Se API retornar token, prossigo, senão, alerta de erro.
-        navigation.navigate('Wallet')
+        // navigation.navigate('Wallet')
+    }
+
+    //Lembrar de trocar endereço da url base
+    async function salvarMetodo(paymentDetails) {
+        const response = await Api.post('/payment_methods', {
+            payment_method: paymentDetails
+        })
+            .then(function (response) {
+                console.log(response.status);
+                console.log(response.data);
+                let novoMetodo = response.data
+                setPayments([...payments, novoMetodo]) //Defino como usuário ativo no momento.
+                console.log(payments)
+                ChangeName("")
+                ChangeCardNumber("")
+                ChangeVencimento("")
+                ChangeCVV("")
+                //Se API retornar token, prossigo, senão, alerta de erro.
+                navigation.navigate('Router')
+            })
+            .catch(function (error) {
+                console.log("Erro ao salvar método")
+                console.log(error);
+                alert("Credenciais ou senha inválidas.")
+            });
     }
 
     //Aplica máscara de data a cada entrada do usuário no campo data
@@ -105,14 +147,14 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginVertical:10
+        marginVertical: 10
     },
     label:
     {
         color: '#FFFFFF',
-        textAlign:'center',
+        textAlign: 'center',
         fontSize: 14,
-        marginVertical:10
+        marginVertical: 10
     },
     input: {
         borderWidth: 1,
@@ -124,15 +166,15 @@ const styles = StyleSheet.create({
         borderColor: '#FFFFFF',
         backgroundColor: '#FFFFFF',
     },
-    linhaCVVeDate:{
+    linhaCVVeDate: {
         flexDirection: 'row',
         width: '90%',
         gap: 10
     },
-    dateInput:{
+    dateInput: {
         width: '77%',
     },
-    cvvInput:{
+    cvvInput: {
         width: '20%',
     },
 })

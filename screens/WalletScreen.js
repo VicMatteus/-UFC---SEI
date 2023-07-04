@@ -4,13 +4,39 @@ import { AntDesign } from "@expo/vector-icons";
 import Header from "../components/header";
 import ItemPagamento from "../components/ItemPagamento";
 import { useUserStore } from "../store";
+import Api from "../Api";
 
 export default function WalletScreen({ navigation }) {
-    const {user, ChangeUser, payments, setPayments} = useUserStore();
+    // const {user, ChangeUser} = useUserStore();
+    const {payments, setPayments} = useUserStore();
+    const [pagamentos, SetPagamentos] = React.useState([]);
 
     function handleClick() {
         navigation.navigate('AddPaymentMethod')
     }
+
+    React.useEffect(() => {
+        recuperarPagamentos();
+    }, [])
+    
+    async function recuperarPagamentos() {
+        const response = await Api.get('/payment_methods')
+            .then(function (response) {
+                console.log(response.status);
+                console.log(response.data)
+                let cartoes = response.data
+                setPayments(cartoes) //Defino como usuário ativo no momento.
+
+                //Se API retornar token, prossigo, senão, alerta de erro.
+                // navigation.navigate('Router')
+            })
+            .catch(function (error) {
+                console.log("Erro ao recuperar métodos de pagamento: ")
+                // console.log(error.response.status);
+                alert("Credenciais ou senha inválidas.")
+            });
+    }
+
     return (
         <View style={styles.container}>
             <Header navigation={navigation}/>
@@ -29,7 +55,7 @@ export default function WalletScreen({ navigation }) {
             <View style={styles.ScrollViewContainer}>
                 <ScrollView style={styles.scrollView}>
                     {
-                        payments.map((cartao, index)=><ItemPagamento key={index} number={cartao.cardNumber} status={cartao.status} name={cartao.name} vencimento={cartao.vencimento} />)
+                        payments.map((cartao, index)=><ItemPagamento key={index} number={cartao.card_number} status={cartao.status} name={cartao.cardholder_name} vencimento={cartao.validity} />)
                     }
                 </ScrollView>
             </View>

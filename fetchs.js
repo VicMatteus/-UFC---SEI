@@ -79,8 +79,8 @@ var token = ''
 // axios({
 //     method: 'get',
 //     baseURL: 'http://localhost:3001',
-//     url: '/current_client',
-//     headers: {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkMjRkZTIwNS02NTM5LTQxZTgtYjM3Ny1jM2Y3ZjQ2NDQ1MGMiLCJzdWIiOiIyIiwic2NwIjoiY2xpZW50IiwiYXVkIjpudWxsLCJpYXQiOjE2ODg0MjYzOTUsImV4cCI6MTY4OTcyMjM5NX0.JKw3sskUerJF5fIM0DaSzN8JFz4lH4HJiStvSumi6iA'}
+//     url: '/payment_methods',
+//     // headers: {'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJkMjRkZTIwNS02NTM5LTQxZTgtYjM3Ny1jM2Y3ZjQ2NDQ1MGMiLCJzdWIiOiIyIiwic2NwIjoiY2xpZW50IiwiYXVkIjpudWxsLCJpYXQiOjE2ODg0MjYzOTUsImV4cCI6MTY4OTcyMjM5NX0.JKw3sskUerJF5fIM0DaSzN8JFz4lH4HJiStvSumi6iA'}
 // })
 // .then(function (response) {
 //     console.log(response.status);
