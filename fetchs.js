@@ -1,3 +1,6 @@
+//Exemplos das requisições para tela de login.
+
+
 const axios = require('axios');
 var token = ''
 
@@ -12,25 +15,25 @@ var token = ''
 /*================================================*/
 
 //Requisição para criar conta. - útil.
-clienteLogin = {
-    name: "UsernameTESTE2",
-    last_name: "LastnameTESTE2",
-    telephone: "99 99999-9999",
-    cpf: "999.999.999-99",
-    email: "testeCreateAccountTESTE2@sei.co",
-    password: "user123"
-}
-axios.post('http://localhost:3001/sign_up', {
-    client: clienteLogin
-})
-.then(function (response) {
-    token = response.headers.authorization
-    console.log(response.status);
-    console.log(response.data.message);
-})
-.catch(function (error) {
-    console.error(error);
-});
+// clienteLogin = {
+//     name: "UsernameTESTE2",
+//     last_name: "LastnameTESTE2",
+//     telephone: "99 99999-9999",
+//     cpf: "999.999.999-99",
+//     email: "testeCreateAccountTESTE2@sei.co",
+//     password: "user123"
+// }
+// axios.post('http://localhost:3001/sign_up', {
+//     client: clienteLogin
+// })
+// .then(function (response) {
+//     token = response.headers.authorization
+//     console.log(response.status);
+//     console.log(response.data.message);
+// })
+// .catch(function (error) {
+//     console.error(error);
+// });
 
 /*================================================*/
 
@@ -86,3 +89,44 @@ axios.post('http://localhost:3001/sign_up', {
 // .catch(function (error) {
 //     console.error(error);
 // });
+
+
+async function fetchApi() {
+    userDetails = {
+        'email': 'email@example.com',
+        'password': '12345678'
+    }
+    const response = await axios.post('http://localhost:3001/login', {
+        client: userDetails
+    })
+        .then(function (response) {
+            // if (response.status === 200) {
+                console.log(response.status);
+                // token = response.headers.authorization;
+                // console.log('Token: ' + token); //Recupera o Token após logar.
+                // console.log(response.data.message);
+                // storeData({ email: email, password: password, token: token })
+                // ChangeUser({ email: email, password: password, token: token }) //Defino como usuário ativo no momento.
+
+                // if (!isRememberMe) {
+                //     ChangeEmail('')
+                //     Changepassword('')
+                //     removeData('user')
+                // }
+
+                //Se API retornar token, prossigo, senão, alerta de erro.
+                // navigation.navigate('Router')
+            // }
+            // else {
+            //     alert("Usuário ou senha inválidos.")
+            //     return;
+            // }
+        })
+        .catch(function (error) {
+            console.error(error.response.status);
+            console.log("Erro ao logar com usuario: ")
+        });
+}
+
+response = fetchApi()
+

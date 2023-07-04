@@ -1,7 +1,8 @@
 import * as React from "react";
-import { View, Text, StyleSheet, DrawerLayoutAndroid, useState } from "react-native";
+import { View, Text, StyleSheet, Alert, useState } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useUserStore } from "../store";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function BookButtom() {
     return (
@@ -10,27 +11,55 @@ function BookButtom() {
         </View>
     );
 }
-function Header() {
-    const {isDrawerOpen, toggleDrawer} = useUserStore();
-    const alternarDrawer = () => {
-        console.log('click')
-        console.log(isDrawerOpen)
-        // toggleDrawer();
-    };
+// Para remover um valor
+const removeData = async (chave) => {
+    try {
+        await AsyncStorage.removeItem(chave);
+        console.log('Dados removidos com sucesso!');
+    } catch (error) {
+        console.log('Erro ao remover os dados: ', error);
+    }
+};
+
+function Header({ navigation }) {
+    const { ChangeUser } = useUserStore()
+
+    const showAlert = () =>
+        Alert.alert(
+            'Deseja se deslogar do sistema?',
+            '',
+            [
+                {
+                    text: 'Sim',
+                    onPress: () => {
+                        //Chamar api de deslogar, remover user da local storage, navegar para tela de login
+                        removeData('user');
+                        ChangeUser({});
+                        navigation.navigate('Login');
+                    },
+                },
+                {
+                    text: 'Não',
+                },
+            ],
+            {
+                cancelable: true,
+            },
+        );
 
     return (
-            <View style={styles.header}>
-                <View style={styles.headerLeft}>
-                    <View>
-                        <Entypo name="menu" size={38} color="white" onPress={()=>alert("Side")} />
-                    </View>
-                    <Text style={styles.headerText}> SEI </Text>
+        <View style={styles.header}>
+            <View style={styles.headerLeft}>
+                <View style={[{ transform: [{ rotate: '180deg' }], justifyContent: 'flex-start' }]}>
+                    <Entypo name="log-out" size={38} color="white" onPress={() => showAlert()} />
                 </View>
-                <View style={styles.headerRight}>
-                    <Text style={{ marginEnd: 10, color: "white" }}> Reservar Vaga</Text>
-                    <BookButtom />
-                </View>
+                <Text style={styles.headerText}> SEI </Text>
             </View>
+            <View style={styles.headerRight}>
+                <Text style={{ marginEnd: 10, color: "white" }}> Reservar Vaga</Text>
+                <BookButtom />
+            </View>
+        </View>
     );
 }
 const styles = StyleSheet.create({

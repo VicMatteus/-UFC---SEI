@@ -6,13 +6,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { useUserStore } from "../store";
 
 
-function HomeScreen() {
+function HomeScreen({navigation}) {
     // const {user, ChangeUser} = useUserStore(); //Possui os dados do usuário.
-    const {isDrawerOpen} = useUserStore();
 
     return (
         <View style={styles.container}>
-            <Header />
+            <Header navigation={navigation}/>
             {/* <Text style={{color:'white'}}>
                 {user.name}
             </Text> */}
@@ -23,7 +22,6 @@ function HomeScreen() {
                 <Text style={styles.buttomText}>Veja a lista de estacionamentos </Text>
                 <AntDesign name="right" size={24} color="white" />
             </TouchableOpacity>
-            {isDrawerOpen && <SideBar />}
         </View>
     );
 }

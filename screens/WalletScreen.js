@@ -13,7 +13,7 @@ export default function WalletScreen({ navigation }) {
     }
     return (
         <View style={styles.container}>
-            <Header />
+            <Header navigation={navigation}/>
             <View style={styles.textContainer}>
                 <Text style={styles.text}>Gerencie seus métodos de pagamento:</Text>
             </View>

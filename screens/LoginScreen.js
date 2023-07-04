@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'rea
 import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Api from '../Api';
 
 //simular acesso ao banco
 import db from '../db.json'
@@ -44,12 +45,12 @@ export default function LoginScreen({ navigation }) {
             if (value !== null) {
                 let oValue = JSON.parse(value);
                 console.log('Valor recuperado: ', oValue);
-    
+
                 //acho que agora, seria o fetch e salvar o usuario retornado da api, além do token
-    
+
                 //Coloco eles no contexto global
-                ChangeUser({ username: oValue.email, password: oValue.password })
-    
+                ChangeUser({ username: oValue.email, password: oValue.password, token: oValue.token });
+
                 //Já dou um navigate para a tela de home?
                 navigation.navigate('Router')
             } else {
@@ -62,34 +63,45 @@ export default function LoginScreen({ navigation }) {
     };
 
     React.useEffect(() => {
-        // retrieveData();
+        retrieveData();
     }, []);
 
     function logar() {
         userDetails = {
-            username: email,
-            password: password
+            'email': email,
+            'password': password
         }
-        // userDetails = JSON.stringify(userDetails) //isso seria pra enviar para a api
+        // console.log(userDetails);
+        response = fetchApi(userDetails)
+    }
 
-        achou = db.filter((user) => user.username === email && user.password === password)
-        if (achou.length === 0) {
-            console.log("Usuario não encontrado")
-            alert("Usuario não encontrado.")
-            return
-        }
-        console.log("Achou o usuário.")
-        // ChangeUser(achou[0]) //Defino como usuário ativo no momento.
-        storeData({ email: email, password: password })
+    //Lembrar de trocar endereço da url base
+    async function fetchApi(userDetails) {
+        const response = await Api.post('/login', {
+            client: userDetails
+        })
+            .then(function (response) {
+                console.log(response.status);
+                token = response.headers.authorization;
+                console.log('Token: ' + token); //Recupera o Token após logar.
+                console.log(response.data.message);
+                storeData({ email: email, password: password, token: token })
+                ChangeUser({ email: email, password: password, token: token }) //Defino como usuário ativo no momento.
 
-        if (!isRememberMe) {
-            ChangeEmail('')
-            Changepassword('')
-            removeData('user')
-        }
+                if (!isRememberMe) {
+                    ChangeEmail('')
+                    Changepassword('')
+                    removeData('user')
+                }
 
-        //Se API retornar token, prossigo, senão, alerta de erro.
-        navigation.navigate('Router')
+                //Se API retornar token, prossigo, senão, alerta de erro.
+                navigation.navigate('Router')
+            })
+            .catch(function (error) {
+                console.log("Erro ao logar com usuario: " + userDetails)
+                console.log(error.response.status);
+                alert("Credenciais ou senha inválidas.")
+            });
     }
 
     return (

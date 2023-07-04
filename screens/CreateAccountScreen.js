@@ -5,27 +5,27 @@ import { useUserStore } from '../store';
 import Api from '../Api'
 
 // const axio = require('axios');
-export default function CreateAccountScreen({navigation}) {
-    const [email       , ChangeEmail]       = React.useState('');
-    const [password    , Changepassword]    = React.useState('');
-    const [name        , ChangeName]        = React.useState('');
-    const [lastName    , ChangeLastName]    = React.useState('');
-    const [phoneNumber , ChangePhoneNumber] = React.useState('');
-    const [cpf         , ChangeCPF]         = React.useState('');
+export default function CreateAccountScreen({ navigation }) {
+    const [email, ChangeEmail] = React.useState('');
+    const [password, Changepassword] = React.useState('');
+    const [name, ChangeName] = React.useState('');
+    const [lastName, ChangeLastName] = React.useState('');
+    const [phoneNumber, ChangePhoneNumber] = React.useState('');
+    const [cpf, ChangeCPF] = React.useState('');
 
     //Será usado na manutenção do token da API
     const [isTermsAndServices, setTermsAndServices] = React.useState(false);
     const toggleSwitch = () => setTermsAndServices(previousState => !previousState);
 
-    const {user, ChangeUser} = useUserStore();
+    const { user, ChangeUser } = useUserStore();
 
-    function enviarDados(){
+    function enviarDados() {
         //Realizar validações: email válido, senha > 8 char, nenhum campo vazio
-        if (!(email && password && name && lastName && phoneNumber && cpf)){
+        if (!(email && password && name && lastName && phoneNumber && cpf)) {
             alert("Preencha todos os campos!")
             return
         }
-        if (password.length<8){
+        if (password.length < 8) {
             alert("Senha deve ser conter mais de 8 caracteres.")
             return
         }
@@ -39,37 +39,23 @@ export default function CreateAccountScreen({navigation}) {
             email: email,
             password: password
         }
-        
+
         response = fetchApi()
-        // token = response.headers.authorization
-        console.log(response);
-        // console.log(response.data.message);
-        // alert(response.data.message)
-        // navigation.navigate('Login')
-
-        // userDetails = JSON.stringify(userDetails)
-        // console.log(userDetails)
-        // ChangeUser(userDetails)
-        // console.log(user)
-        //Se API retornar token, prossigo, senão, alerta de erro.
-
     }
-    
-    async function fetchApi(){
+
+    async function fetchApi() {
         const response = await Api.post('/sign_up', {
             client: clienteLogin
         })
-        .then(function (response) {
-            token = response.headers.authorization
-            console.log(response.status);
-            console.log(response.data.message);
-            alert(response.data.message)
-            navigation.navigate('Login')
-        })
-        .catch(function (error) {
-            console.error(error);
-        });
-
+            .then(function (response) {
+                console.log(response.status);
+                console.log(response.data.message);
+                alert(response.data.message)
+                navigation.navigate('Login')
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }
 
     return (
@@ -123,10 +109,7 @@ export default function CreateAccountScreen({navigation}) {
                 />
                 <Text style={styles.switchText}>Ao se inscrever significa que você leu e concorda com os Termos e Condições de Uso e nossa Política de Privacidade.</Text>
             </View>
-
-            {/*Faltando realizar validações e bater na api para logar e avançar para*/}
-            <SuccessButton label={"Criar conta"} navegarPara={()=>enviarDados()}/>
-
+            <SuccessButton label={"Criar conta"} navegarPara={() => enviarDados()} />
         </View>
     );
 }

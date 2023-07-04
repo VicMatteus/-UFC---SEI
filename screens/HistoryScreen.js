@@ -6,12 +6,12 @@ import ItemHistorico from "../components/ItemHistorico";
 import { useUserStore } from "../store";
 
 
-export default function HistoryScreen() {
+export default function HistoryScreen({navigation}) {
     const {history} = useUserStore(); //Possui os dados do usuário.
 
     return (
         <View style={styles.container}>
-            <Header />
+            <Header navigation={navigation}/>
             {/* <Text style={{color:'white'}}>
                 {user.name}
             </Text> */}
