@@ -62,7 +62,7 @@ export default function LoginScreen({ navigation }) {
     };
 
     React.useEffect(() => {
-        retrieveData();
+        // retrieveData();
     }, []);
 
     function logar() {

@@ -2,7 +2,9 @@ import React from 'react';
 import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'react-native';
 import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
+import Api from '../Api'
 
+// const axio = require('axios');
 export default function CreateAccountScreen({navigation}) {
     const [email       , ChangeEmail]       = React.useState('');
     const [password    , Changepassword]    = React.useState('');
@@ -28,25 +30,48 @@ export default function CreateAccountScreen({navigation}) {
             return
         }
 
-        userDetails = {
-            username: email,
-            password: password,
+        //Requisição para criar conta. - útil.
+        clienteLogin = {
             name: name,
-            lastName: lastName,
-            phoneNumber: phoneNumber,
+            last_name: lastName,
+            telephone: phoneNumber,
             cpf: cpf,
-            TermsAndServices: isTermsAndServices,
-            RememberMe:false
+            email: email,
+            password: password
         }
+        
+        response = fetchApi()
+        // token = response.headers.authorization
+        console.log(response);
+        // console.log(response.data.message);
+        // alert(response.data.message)
+        // navigation.navigate('Login')
+
         // userDetails = JSON.stringify(userDetails)
-        console.log(userDetails)
-        ChangeUser(userDetails)
-        console.log(user)
+        // console.log(userDetails)
+        // ChangeUser(userDetails)
+        // console.log(user)
         //Se API retornar token, prossigo, senão, alerta de erro.
 
-        navigation.navigate('Login')
     }
     
+    async function fetchApi(){
+        const response = await Api.post('/sign_up', {
+            client: clienteLogin
+        })
+        .then(function (response) {
+            token = response.headers.authorization
+            console.log(response.status);
+            console.log(response.data.message);
+            alert(response.data.message)
+            navigation.navigate('Login')
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
