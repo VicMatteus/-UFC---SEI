@@ -1,8 +1,6 @@
 import axios from 'axios';
-
+import { ipv4 } from './enderecoBack';
 //Não sei bem o pq, mas precisei fazer isso pra funcionar.
-//Lembrar de trocar endereço da url base!!!
-const ipv4 = '4.228.110.182'
 const Api = axios.create({
     baseURL: "http://"+ipv4+":3001/"
 });

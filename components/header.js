@@ -1,17 +1,10 @@
 import * as React from "react";
-import { View, Text, StyleSheet, Alert, useState } from "react-native";
+import { View, Text, StyleSheet, Alert, useState, TouchableOpacity } from "react-native";
 import { Entypo, AntDesign } from "@expo/vector-icons";
 import { useUserStore } from "../store";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Api from "../Api";
 
-function BookButtom() {
-    return (
-        <View style={styles.bookButtom}>
-            <AntDesign name="plus" size={18} color="white" />
-        </View>
-    );
-}
 // Para remover um valor
 const removeData = async (chave) => {
     try {
@@ -27,15 +20,15 @@ async function fetchApi(token) {
     const response = await Api({
         method: 'delete',
         url: '/logout',
-        headers: {'Authorization': token}
+        headers: { 'Authorization': token }
     })
-    .then(function (response) {
-        console.log(response.status);
-        console.log(response.data.message);
-    })
-    .catch(function (error) {
-        console.error(error);
-    });
+        .then(function (response) {
+            console.log(response.status);
+            console.log(response.data.message);
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
 }
 
 function Header({ navigation }) {
@@ -47,6 +40,9 @@ function Header({ navigation }) {
             '',
             [
                 {
+                    text: 'Não',
+                },
+                {
                     text: 'Sim',
                     onPress: () => {
                         //Chamar api de deslogar, remover user da local storage, navegar para tela de login
@@ -56,12 +52,10 @@ function Header({ navigation }) {
                         setPayments([])
                         setHistory([])
                         setVehicles([])
+
                         navigation.navigate('Login');
                     },
-                },
-                {
-                    text: 'Não',
-                },
+                }
             ],
             {
                 cancelable: true,
@@ -78,11 +72,14 @@ function Header({ navigation }) {
             </View>
             <View style={styles.headerRight}>
                 <Text style={{ marginEnd: 10, color: "white" }}> Reservar Vaga</Text>
-                <BookButtom />
+                <TouchableOpacity style={styles.bookButtom} onPress={()=>navigation.navigate("BookVacancy")}>
+                    <AntDesign name="plus" size={18} color="white" />
+                </TouchableOpacity>
             </View>
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     header: {
         flexDirection: "row",

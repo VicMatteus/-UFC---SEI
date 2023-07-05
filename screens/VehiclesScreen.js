@@ -3,7 +3,6 @@ import * as React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import Header from "../components/header";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import ItemVeiculo from "../components/ItemVeículo";
 import { useUserStore } from "../store";
 import Api from "../Api";
@@ -25,15 +24,11 @@ export default function VehiclesScreen({ navigation }) {
                 console.log(response.status);
                 console.log(response.data)
                 let veiculos = response.data
-                setVehicles(veiculos) //Defino como usuário ativo no momento.
-
-                //Se API retornar token, prossigo, senão, alerta de erro.
-                // navigation.navigate('Router')
+                setVehicles(veiculos) 
             })
             .catch(function (error) {
-                console.log("Erro ao recuperar veículos cadastrados: ")
-                // console.log(error.response.status);
-                alert("Credenciais ou senha inválidas.")
+                console.log("Erro ao recuperar veículos cadastrados")
+                alert("Erro ao recuperar veículos cadastrados.")
             });
     }
     return (

@@ -3,8 +3,7 @@ import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'rea
 import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
 import Api from '../Api';
-
-const ipv4 = '4.228.110.182'
+import {ipv4} from '../enderecoBack.js';
 
 export default function AddPaymentMethod({ navigation }) {
     const [name, ChangeName] = React.useState('vitor');
@@ -16,7 +15,7 @@ export default function AddPaymentMethod({ navigation }) {
     const { user, ChangeUser, payments, setPayments } = useUserStore();
 
     React.useEffect(() => {
-        fetch("http://"+ipv4+":3001/current_client")
+        fetch("http://" + ipv4 + ":3001/current_client")
         .then(response => response.json())
         .then(data => {
             console.log(data.id)
@@ -50,7 +49,6 @@ export default function AddPaymentMethod({ navigation }) {
         salvarMetodo(paymentDetails);
     }
 
-    //Lembrar de trocar endereço da url base
     async function salvarMetodo(paymentDetails) {
         const response = await Api.post('/payment_methods', {
             payment_method: paymentDetails
@@ -59,19 +57,18 @@ export default function AddPaymentMethod({ navigation }) {
                 console.log(response.status);
                 console.log(response.data);
                 let novoMetodo = response.data
-                setPayments([...payments, novoMetodo]) //Defino como usuário ativo no momento.
+                setPayments([...payments, novoMetodo])
                 console.log(payments)
                 ChangeName("")
                 ChangeCardNumber("")
                 ChangeVencimento("")
                 ChangeCVV("")
-                //Se API retornar token, prossigo, senão, alerta de erro.
                 navigation.navigate('Router')
             })
             .catch(function (error) {
                 console.log("Erro ao salvar método")
                 console.log(error);
-                alert("Credenciais ou senha inválidas.")
+                alert("Erro ao salvar método.")
             });
     }
 

@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10,
+        zIndex: 1
     },
     buttonLabel: {
         color: '#FFFFFF',

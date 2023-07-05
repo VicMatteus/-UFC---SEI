@@ -10,6 +10,7 @@ import RecoverScreen from './screens/RecoverScreen';
 import LoginScreen from './screens/LoginScreen';
 import AddPaymentMethod from './screens/AddPaymentMethod';
 import AddVehicle from './screens/AddVehicle';
+import BookVacancy from './screens/BookingScreen';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
                 <Stack.Screen name="Router"           component={TabRouter}           options={{ headerShown: false }} />
                 <Stack.Screen name="AddPaymentMethod" component={AddPaymentMethod}    options={{ title: "Adicionar método de pagamento" }} />
                 <Stack.Screen name="AddVehicle"       component={AddVehicle}          options={{ title: "Adicionar veículo" }} />
+                <Stack.Screen name="BookVacancy"      component={BookVacancy}          options={{ title: "Fazer reserva" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

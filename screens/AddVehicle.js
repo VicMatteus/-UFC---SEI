@@ -3,8 +3,8 @@ import { View, Text, StyleSheet, TextInput, Switch, TouchableOpacity } from 'rea
 import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
 import Api from "../Api";
+import {ipv4} from '../enderecoBack.js';
 
-const ipv4 = '4.228.110.182'
 export default function AddVehicle({ navigation }) {
     const [vehicleName, ChangeVehicleName] = React.useState('Subaru');
     const [vehiclePlate, ChangeVehiclePlate] = React.useState('LEO-1234');
@@ -12,21 +12,19 @@ export default function AddVehicle({ navigation }) {
 
     const { user, ChangeUser, vehicles, setVehicles } = useUserStore();
 
-
     React.useEffect(() => {
-        fetch("http://"+ipv4+":3001/current_client")
-            .then(response => response.json())
-            .then(data => {
-                console.log(data.id)
-                SetClienteAtual(data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        fetch("http://" + ipv4 + ":3001/current_client")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.id)
+            SetClienteAtual(data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }, [])
 
     function enviarDados() {
-        //Realizar validações: nenhum campo vazio
         if (!(vehicleName && vehiclePlate)) {
             alert("Preencha todos os campos!")
             return
@@ -43,12 +41,8 @@ export default function AddVehicle({ navigation }) {
         }
         console.log("vehicle details: ")
         console.log(vehicleDetails)
+        
         salvarVeiculo(vehicleDetails);
-        // userDetails = JSON.stringify(userDetails)
-        //console.log(vehicleDetails)
-        // setVehicles([...vehicles, vehicleDetails])
-        //console.log(vehicles)
-        //Se API retornar token, prossigo, senão, alerta de erro.
         navigation.navigate('Vehicles')
     }
     async function salvarVeiculo(vehicleDetails) {
