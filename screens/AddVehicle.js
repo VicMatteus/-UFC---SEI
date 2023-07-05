@@ -4,6 +4,7 @@ import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
 import Api from "../Api";
 
+const ipv4 = '4.228.110.182'
 export default function AddVehicle({ navigation }) {
     const [vehicleName, ChangeVehicleName] = React.useState('Subaru');
     const [vehiclePlate, ChangeVehiclePlate] = React.useState('LEO-1234');
@@ -13,7 +14,7 @@ export default function AddVehicle({ navigation }) {
 
 
     React.useEffect(() => {
-        fetch("http://192.168.1.229:3001/current_client")
+        fetch("http://"+ipv4+":3001/current_client")
             .then(response => response.json())
             .then(data => {
                 console.log(data.id)

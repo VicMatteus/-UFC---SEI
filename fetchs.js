@@ -1,9 +1,9 @@
 //Exemplos das requisições para tela de login.
 
-
+import {ipv4} from './ipv4.js';
 const axios = require('axios');
 var token = ''
-
+console.log(ipv4)
     // cliente = {
     //     name: "Username",
     //     last_name: "Lastname",
