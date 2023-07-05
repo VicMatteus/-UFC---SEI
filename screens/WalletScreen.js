@@ -7,9 +7,7 @@ import { useUserStore } from "../store";
 import Api from "../Api";
 
 export default function WalletScreen({ navigation }) {
-    // const {user, ChangeUser} = useUserStore();
     const {payments, setPayments} = useUserStore();
-    const [pagamentos, SetPagamentos] = React.useState([]);
 
     function handleClick() {
         navigation.navigate('AddPaymentMethod')

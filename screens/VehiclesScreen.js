@@ -5,34 +5,23 @@ import Header from "../components/header";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
-const RegisterVehicleButton = () => {
-    const navigation = useNavigation();
 
+function VehiclesScreen({ navigation }) {
     const handlePress = () => {
-        navigation.navigate("RegisterVehicleScreen");
+        navigation.navigate("AddVehicle");
+        // console.log("RegisterVehicleScreen")
     };
 
-    return (
-        <TouchableOpacity onPress={handlePress}>
-            <Text>Navegar para outra tela</Text>
-        </TouchableOpacity>
-    );
-};
-
-function VehiclesScreen() {
     return (
         <View style={styles.container}>
             <Header />
             <View style={styles.textContainer}>
                 <Text style={styles.text}>Cadastre um veículo:</Text>
             </View>
-            <View style={styles.newVehicleButtom}>
+            <TouchableOpacity style={styles.newVehicleButtom} onPress={handlePress}>
                 <Text style={styles.buttomText}>Cadastre um veículo </Text>
                 <AntDesign name="right" size={24} color="white" />
-            </View>
-            <View>
-                <RegisterVehicleButton />
-            </View>
+            </TouchableOpacity>
         </View>
     );
 }

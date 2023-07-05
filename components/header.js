@@ -71,7 +71,7 @@ function Header({ navigation }) {
         <View style={styles.header}>
             <View style={styles.headerLeft}>
                 <View style={[{ transform: [{ rotate: '180deg' }], justifyContent: 'flex-start' }]}>
-                    <Entypo name="log-out" size={38} color="white" onPress={() => showAlert()} />
+                    <Entypo name="log-out" size={30} color="white" onPress={() => showAlert()} />
                 </View>
                 <Text style={styles.headerText}> SEI </Text>
             </View>
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     headerLeft: {
         flexDirection: "row",
         marginHorizontal: 10,
+        alignItems: "center",
     },
     headerRight: {
         marginHorizontal: 15,
