@@ -13,6 +13,11 @@ export const useUserStore = create((set) => ({
     toggleDrawer: () => set((state)=>{isDrawerOpen: !state.isDrawerOpen}),
     history:[{data:'13/12/2011', entrada: 'entrada', saida:'saida', veiculo: 'onix', valor:'12.23'}],
     setHistory:(history) => set({history:history}),
-    veiculos:[],
-    setVeiculos:(veiculos) => set({veiculos:veiculos}),
-}))
+    vehicles:[],
+    setVehicles: (newVehicles) => set((state) => ({ vehicles: [...state.vehicles, ...newVehicles] })),
+    removeVehicle: (vehicle) => {
+        set((state) => ({
+            vehicles: state.vehicles.filter((v) => v !== vehicle)
+        }));
+    },
+}));

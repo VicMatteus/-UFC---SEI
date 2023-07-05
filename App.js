@@ -9,6 +9,7 @@ import CreateAccountScreen from './screens/CreateAccountScreen';
 import RecoverScreen from './screens/RecoverScreen';
 import LoginScreen from './screens/LoginScreen';
 import AddPaymentMethod from './screens/AddPaymentMethod';
+import AddVehicle from './screens/AddVehicle';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                 <Stack.Screen name="RecuperarConta"   component={RecoverScreen}       options={{ title: "Recuperar conta" }} />
                 <Stack.Screen name="Router"           component={TabRouter}           options={{ headerShown: false }} />
                 <Stack.Screen name="AddPaymentMethod" component={AddPaymentMethod}    options={{ title: "Adicionar método de pagamento" }} />
+                <Stack.Screen name="AddVehicle" component={AddVehicle}    options={{ title: "Adicionar veículo" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
