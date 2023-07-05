@@ -55,7 +55,7 @@ export default function WalletScreen({ navigation }) {
             <View style={styles.ScrollViewContainer}>
                 <ScrollView style={styles.scrollView}>
                     {
-                        payments.map((cartao, index)=><ItemPagamento key={index} number={cartao.card_number} status={cartao.status} name={cartao.cardholder_name} vencimento={cartao.validity} />)
+                        payments.map((cartao)=><ItemPagamento id={cartao.id} key={cartao.id} number={cartao.card_number} status={true/*cartao.status*/} name={cartao.cardholder_name} vencimento={cartao.validity} />)
                     }
                 </ScrollView>
             </View>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     },
     ScrollViewContainer: {
         width: '85%',
-        height:'70%',
+        height:'65%',
         alignItems: "center",
         justifyContent: "center",
     },

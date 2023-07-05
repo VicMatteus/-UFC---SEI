@@ -1,15 +1,34 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useUserStore } from "../../store";
+import Api from '../../Api';
 
-
-export default function ItemPagamento({ number, status, name, vencimento }) {
+export default function ItemPagamento({ number, status, name, vencimento, id }) {
     const {user, ChangeUser, payments, setPayments} = useUserStore();
 
     function verificarStatus() {
         let statusStyles = [styles.info]
         status === true ? statusStyles.push(styles.statusAtivo) : statusStyles.push(styles.statusInativo)
         return statusStyles
+    }
+
+    async function removerPagamentos(idCartao) {
+        const response = await Api.delete('/payment_methods/'+idCartao)
+            .then(function (response) {
+                console.log(response.status);
+                alert("Método removido com sucesso!")
+                // let cartoes = response.data
+                cartoes = payments.filter(cartao => cartao.id !== idCartao)
+                console.log(cartoes)
+                setPayments(cartoes) //Defino como usuário ativo no momento.
+
+                // navigation.navigate('Router')
+            })
+            .catch(function (error) {
+                console.log("Erro ao excluir método de pagamento: ")
+                // console.log(error.response.status);
+                alert("Erro ao excluir método de pagamento: ")
+            });
     }
 
     const showAlert = () =>
@@ -22,12 +41,13 @@ export default function ItemPagamento({ number, status, name, vencimento }) {
                     onPress: () => {
                         // Alert.alert('Sim pressionado')
                         cartoes = payments
-                        alvo = cartoes.filter(cartao => cartao.cardNumber === number)
+                        alvo = cartoes.filter(cartao => cartao.id === id)
                         if(alvo.length === 1)
                         {
                             indice = cartoes.indexOf(alvo[0])
-                            cartoes[indice].status = !cartoes[indice].status; //deveria ser um patch no back
-                            setPayments(cartoes)
+                            console.log(cartoes[indice].id);
+                            removerPagamentos(cartoes[indice].id)
+                            // setPayments(cartoes)
                             console.log("Operação realizada")
                         }
                         else if(alvo.length>1)

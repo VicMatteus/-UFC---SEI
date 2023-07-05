@@ -14,7 +14,7 @@ export default function AddPaymentMethod({ navigation }) {
     const { user, ChangeUser, payments, setPayments } = useUserStore();
 
     React.useEffect(() => {
-        fetch("http://192.168.88.91:3001/current_client")
+        fetch("http://192.168.1.229:3001/current_client")
         .then(response => response.json())
         .then(data => {
             console.log(data.id)
@@ -46,12 +46,6 @@ export default function AddPaymentMethod({ navigation }) {
         }
         console.log("payment details: "+paymentDetails)
         salvarMetodo(paymentDetails);
-        // userDetails = JSON.stringify(userDetails)
-        // console.log(paymentDetails)
-        // setPayments([...payments, paymentDetails])
-        // console.log(payments)
-        //Se API retornar token, prossigo, senão, alerta de erro.
-        // navigation.navigate('Wallet')
     }
 
     //Lembrar de trocar endereço da url base
@@ -102,7 +96,7 @@ export default function AddPaymentMethod({ navigation }) {
                 onChangeText={ChangeCardNumber}
                 value={cardNumber}
                 keyboardType='numeric'
-                maxLength={11}
+                maxLength={16}
                 placeholder='Número do cartão' />
 
             <View style={styles.linhaCVVeDate}>
