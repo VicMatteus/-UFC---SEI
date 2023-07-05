@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from "react-native";
 import Header from "../components/header";
-import SideBar from "../components/Sidebar";
 import { AntDesign } from "@expo/vector-icons";
 import { useUserStore } from "../store";
 

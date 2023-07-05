@@ -62,7 +62,7 @@ function TabNavigation() {
                     },
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="History"
                 component={HistoryScreen}
                 options={{
@@ -85,7 +85,7 @@ function TabNavigation() {
                         );
                     },
                 }}
-            />
+            /> */}
             <Tab.Screen
                 name="Wallet"
                 component={WalletScreen}
