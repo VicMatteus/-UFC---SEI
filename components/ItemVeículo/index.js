@@ -1,38 +1,63 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useUserStore } from "../../store";
+import Api from '../../Api';
 
-export default function ItemVeiculo({ plate, name,}) {
-    const {user, ChangeUser, vehicles, setVehicles, removeVehicle} = useUserStore();
+export default function ItemVeiculo({ plate, name, id }) {
+    const { user, ChangeUser, vehicles, setVehicles, removeVehicle } = useUserStore();
+
+    async function removerVeiculo(idVeiculo) {
+        const response = await Api.delete('/vehicles/' + idVeiculo)
+            .then(function (response) {
+                console.log(response.status);
+                alert("Veículo removido com sucesso!")
+                // let cartoes = response.data
+                veiculos = vehicles.filter(veiculo => veiculo.id !== idVeiculo)
+                console.log(veiculos)
+                setVehicles(veiculos) //Defino como usuário ativo no momento.
+
+                // navigation.navigate('Router')
+            })
+            .catch(function (error) {
+                console.log(error.message)
+                // console.log(error.response.status);
+                alert("Erro ao excluir método de pagamento: ")
+            });
+    }
 
     const showAlert = () =>
-    Alert.alert(
-        'Remover Veículo',
-        'Deseja remover este veículo?',
-        [
-          {
-            text: 'Cancelar',
-            style: 'cancel',
-          },
-          {
-            text: 'Remover',
-            onPress: () => {
-              removeVehicle(plate);
-            },
-            style: 'destructive',
-          },
-        ],
-        { cancelable: false }
-      );
+        Alert.alert(
+            'Remover Veículo',
+            'Deseja remover este veículo?',
+            [
+                {
+                    text: 'Cancelar',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Remover',
+                    onPress: () => {
+                        console.log(vehicles)
+                        setVehicles(vehicles.filter(vehicle => vehicle.id !== id))
+                        console.log(vehicles);
+                        // indice = vehicles.indexOf(vehicles.filter(vehicle => vehicle.id === id)[0])
+                        // removerVeiculo(vehicles[indice].id)
+                        console.log("Operação realizada")
+                    },
+                    style: 'destructive',
+                }
+            ],
+            { cancelable: false }
+        );
 
     return (
         <TouchableOpacity style={styles.container} onPress={() => showAlert()}>
             <View style={styles.linha1}>
                 <Text style={styles.info}>Apelido:{name}</Text>
-                
+
             </View>
             <Text style={styles.info}>Placa: {plate}</Text>
-            
+
         </TouchableOpacity>
     );
 }

@@ -4,27 +4,29 @@ import SuccessButton from '../components/SuccesButton'
 import { useUserStore } from '../store';
 import Api from "../Api";
 
-
-
-export default function AddVehicle({navigation}){
+export default function AddVehicle({ navigation }) {
     const [vehicleName, ChangeVehicleName] = React.useState('Subaru');
     const [vehiclePlate, ChangeVehiclePlate] = React.useState('LEO-1234');
     const [clienteAtual, SetClienteAtual] = React.useState({});
+
+    const { user, ChangeUser, vehicles, setVehicles } = useUserStore();
+
+
     React.useEffect(() => {
-        fetch("http://192.168.88.91:3001/current_client")
-        .then(response => response.json())
-        .then(data => {
-            console.log(data.id)
-            SetClienteAtual(data)
-        })
-        .catch(error => {
-            console.log(error)
-        })
+        fetch("http://192.168.1.229:3001/current_client")
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.id)
+                SetClienteAtual(data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }, [])
 
     function enviarDados() {
         //Realizar validações: nenhum campo vazio
-        if (!(vehicleName && vehiclePlate )) {
+        if (!(vehicleName && vehiclePlate)) {
             alert("Preencha todos os campos!")
             return
         }
@@ -32,17 +34,18 @@ export default function AddVehicle({navigation}){
             alert("Placa inválida")
             return
         }
-    
+
         const vehicleDetails = {
             nickname: vehicleName,
             plate: vehiclePlate,
             client_id: clienteAtual.id
         }
-        console.log("vehicle details: "+vehicleDetails)
+        console.log("vehicle details: ")
+        console.log(vehicleDetails)
         salvarVeiculo(vehicleDetails);
         // userDetails = JSON.stringify(userDetails)
         //console.log(vehicleDetails)
-       // setVehicles([...vehicles, vehicleDetails])
+        // setVehicles([...vehicles, vehicleDetails])
         //console.log(vehicles)
         //Se API retornar token, prossigo, senão, alerta de erro.
         navigation.navigate('Vehicles')
@@ -74,7 +77,6 @@ export default function AddVehicle({navigation}){
                 <Text style={styles.text}>Adicione um veículo</Text>
                 <Text style={styles.label}>Certifique-se que você inseriu as informações corretas do veículo, elas serão usadas para identificá-lo.</Text>
             </View>
-           
             <TextInput style={styles.input}
                 onChangeText={ChangeVehicleName}
                 value={vehicleName}
@@ -89,7 +91,7 @@ export default function AddVehicle({navigation}){
             {/*Faltando realizar validações e bater na api para logar e avançar para*/}
             <SuccessButton label={"Adicionar veículo"} navegarPara={() => enviarDados()} />
 
-           
+
 
         </View>
     );
@@ -117,14 +119,14 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         textAlign: 'center',
         fontWeight: 'bold',
-        marginVertical:10
+        marginVertical: 10
     },
     label:
     {
         color: '#FFFFFF',
-        textAlign:'center',
+        textAlign: 'center',
         fontSize: 15,
-        marginVertical:10
+        marginVertical: 10
     },
     input: {
         borderWidth: 1,

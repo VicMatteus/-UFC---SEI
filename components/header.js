@@ -39,7 +39,7 @@ async function fetchApi(token) {
 }
 
 function Header({ navigation }) {
-    const { user, ChangeUser, setPayments, setHistory } = useUserStore()
+    const { user, ChangeUser, setPayments, setHistory, setVehicles } = useUserStore()
 
     const showAlert = () =>
         Alert.alert(
@@ -55,6 +55,7 @@ function Header({ navigation }) {
                         ChangeUser({});
                         setPayments([])
                         setHistory([])
+                        setVehicles([])
                         navigation.navigate('Login');
                     },
                 },

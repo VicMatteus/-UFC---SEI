@@ -14,10 +14,10 @@ export const useUserStore = create((set) => ({
     history:[{data:'13/12/2011', entrada: 'entrada', saida:'saida', veiculo: 'onix', valor:'12.23'}],
     setHistory:(history) => set({history:history}),
     vehicles:[],
-    setVehicles: (newVehicles) => set((state) => ({ vehicles: [...state.vehicles, ...newVehicles] })),
+    setVehicles: (newVehicle) => set({vehicles:newVehicle}),
     removeVehicle: (vehicle) => {
         set((state) => ({
-            vehicles: state.vehicles.filter((v) => v !== vehicle)
+            vehicles: state.vehicles.filter((v) => v.id !== vehicle.id)
         }));
     },
 }));

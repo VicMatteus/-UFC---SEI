@@ -28,7 +28,7 @@ function App() {
                 <Stack.Screen name="RecuperarConta"   component={RecoverScreen}       options={{ title: "Recuperar conta" }} />
                 <Stack.Screen name="Router"           component={TabRouter}           options={{ headerShown: false }} />
                 <Stack.Screen name="AddPaymentMethod" component={AddPaymentMethod}    options={{ title: "Adicionar método de pagamento" }} />
-                <Stack.Screen name="AddVehicle" component={AddVehicle}    options={{ title: "Adicionar veículo" }} />
+                <Stack.Screen name="AddVehicle"       component={AddVehicle}          options={{ title: "Adicionar veículo" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );
