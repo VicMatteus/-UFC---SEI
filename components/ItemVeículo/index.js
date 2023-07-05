@@ -11,16 +11,12 @@ export default function ItemVeiculo({ plate, name, id }) {
             .then(function (response) {
                 console.log(response.status);
                 alert("Veículo removido com sucesso!")
-                // let cartoes = response.data
                 veiculos = vehicles.filter(veiculo => veiculo.id !== idVeiculo)
                 console.log(veiculos)
                 setVehicles(veiculos) //Defino como usuário ativo no momento.
-
-                // navigation.navigate('Router')
             })
             .catch(function (error) {
                 console.log(error.message)
-                // console.log(error.response.status);
                 alert("Erro ao excluir método de pagamento: ")
             });
     }
@@ -38,10 +34,8 @@ export default function ItemVeiculo({ plate, name, id }) {
                     text: 'Remover',
                     onPress: () => {
                         console.log(vehicles)
-                        setVehicles(vehicles.filter(vehicle => vehicle.id !== id))
-                        console.log(vehicles);
-                        // indice = vehicles.indexOf(vehicles.filter(vehicle => vehicle.id === id)[0])
-                        // removerVeiculo(vehicles[indice].id)
+                        indice = vehicles.indexOf(vehicles.filter(vehicle => vehicle.id === id)[0])
+                        removerVeiculo(vehicles[indice].id)
                         console.log("Operação realizada")
                     },
                     style: 'destructive',
@@ -54,10 +48,8 @@ export default function ItemVeiculo({ plate, name, id }) {
         <TouchableOpacity style={styles.container} onPress={() => showAlert()}>
             <View style={styles.linha1}>
                 <Text style={styles.info}>Apelido:{name}</Text>
-
             </View>
             <Text style={styles.info}>Placa: {plate}</Text>
-
         </TouchableOpacity>
     );
 }
