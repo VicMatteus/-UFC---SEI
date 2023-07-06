@@ -5,16 +5,21 @@ import SideBar from "../components/Sidebar";
 import ItemHistorico from "../components/ItemHistorico";
 import { useUserStore } from "../store";
 
+/**
+    cost: campo numérico de ponto flutuante que armazena o custo da movimentação do veículo.
+    vehicle_id: campo numérico inteiro de identificação do veículo associado à movimentação.
+    client_id: campo numérico inteiro de identificação do cliente associado à movimentação.
+    created_at: campo de data e hora que registra o momento em que o registro da movimentação foi criado.
+    updated_at: campo de data e hora que registra o momento em que o registro da movimentação foi atualizado.
+ */
 
 export default function HistoryScreen({navigation}) {
-    const {history} = useUserStore(); //Possui os dados do usuário.
+    const {history} = useUserStore(); 
 
     return (
         <View style={styles.container}>
             <Header navigation={navigation}/>
-            {/* <Text style={{color:'white'}}>
-                {user.name}
-            </Text> */}
+
             <View style={styles.textContainer}>
                 <Text style={styles.text}>Histórico de movimentações:</Text>
             </View>
