@@ -114,8 +114,8 @@ export default function BookVacancy({ navigation }) {
                 let novaReserva = response.data
                 detalhesReserva = {
                     reservaDetails: novaReserva,
-                    vacancyDetails: vagas.filter((vaga) => vaga.id === valueVacancy),
-                    parkingDetails: estacionamentos.filter((estacionamento) => estacionamento.id === valueParking)
+                    vacancyDetails: vagas.filter((vaga) => vaga.id === valueVacancy)[0],
+                    parkingDetails: estacionamentos.filter((estacionamento) => estacionamento.id === valueParking)[0]
                 }
                 setReserva(detalhesReserva)
                 console.log(detalhesReserva)

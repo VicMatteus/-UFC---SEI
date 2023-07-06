@@ -48,7 +48,12 @@ function HomeScreen({ navigation }) {
                 setReserva(detalhesReserva)
 
             } catch (error) {
-                console.error('Ocorreu um erro:', error);
+                if (error.message.indexOf('404') === -1) {
+                    alert("Erro ao buscar reservas.")
+                    console.log(error.message)
+                    return
+                }
+                console.log('Não existem reservas.');
             }
         }
         requisicoes()
@@ -69,6 +74,17 @@ function HomeScreen({ navigation }) {
         )
     }
 
+    //Só pode haver uma reserva ativa
+    function handleClick() {
+        if (JSON.stringify(reserva) === '{}') {
+            navigation.navigate("BookVacancy")
+        }
+        else {
+            alert("Você já possui uma reserva.")
+            return
+        }
+    }
+
     return (
         <View style={styles.container}>
             <Header navigation={navigation} />
@@ -76,7 +92,7 @@ function HomeScreen({ navigation }) {
             <View style={styles.textContainer}>
                 <Text style={styles.text}>Escolha um estacionamento:</Text>
             </View>
-            <TouchableOpacity style={styles.parkingButtom}>
+            <TouchableOpacity style={styles.parkingButtom} onPress={handleClick}>
                 <Text style={styles.buttomText}>Veja a lista de estacionamentos </Text>
                 <AntDesign name="right" size={24} color="white" />
             </TouchableOpacity>
