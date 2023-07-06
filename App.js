@@ -11,26 +11,36 @@ import LoginScreen from './screens/LoginScreen';
 import AddPaymentMethod from './screens/AddPaymentMethod';
 import AddVehicle from './screens/AddVehicle';
 import BookVacancy from './screens/BookingScreen';
+import { useUserStore } from './store';
+
 const Stack = createNativeStackNavigator();
 
 function App() {
     //Depois substituir pelo zustand
-    // const [isLoggedIn, setLoggedIn] = React.useState(false);
+    // const { user, ChangeUser, setPayments, setHistory, setVehicles, setReserva } = useUserStore()
 
+    // React.useEffect(() => {
+    //     return () => {
+    //         setPayments([])
+    //         setHistory([])
+    //         setVehicles([])
+    //         setReserva({})
+    //     }
+    // }, [])
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{
-                headerStyle: {backgroundColor: '#121212'},
+                headerStyle: { backgroundColor: '#121212' },
                 headerTintColor: '#FFFFFF',
-                headerTitleStyle: {fontWeight: 'bold'}
+                headerTitleStyle: { fontWeight: 'bold' }
             }}>
-                <Stack.Screen name="Login"            component={LoginScreen}         options={{ headerShown: false }} />
-                <Stack.Screen name="CriarConta"       component={CreateAccountScreen} options={{ title: "Criar conta" }} />
-                <Stack.Screen name="RecuperarConta"   component={RecoverScreen}       options={{ title: "Recuperar conta" }} />
-                <Stack.Screen name="Router"           component={TabRouter}           options={{ headerShown: false }} />
-                <Stack.Screen name="AddPaymentMethod" component={AddPaymentMethod}    options={{ title: "Adicionar método de pagamento" }} />
-                <Stack.Screen name="AddVehicle"       component={AddVehicle}          options={{ title: "Adicionar veículo" }} />
-                <Stack.Screen name="BookVacancy"      component={BookVacancy}          options={{ title: "Fazer reserva" }} />
+                <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+                <Stack.Screen name="CriarConta" component={CreateAccountScreen} options={{ title: "Criar conta" }} />
+                <Stack.Screen name="RecuperarConta" component={RecoverScreen} options={{ title: "Recuperar conta" }} />
+                <Stack.Screen name="Router" component={TabRouter} options={{ headerShown: false }} />
+                <Stack.Screen name="AddPaymentMethod" component={AddPaymentMethod} options={{ title: "Adicionar método de pagamento" }} />
+                <Stack.Screen name="AddVehicle" component={AddVehicle} options={{ title: "Adicionar veículo" }} />
+                <Stack.Screen name="BookVacancy" component={BookVacancy} options={{ title: "Fazer reserva" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

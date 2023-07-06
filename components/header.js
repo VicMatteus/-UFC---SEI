@@ -32,7 +32,7 @@ async function fetchApi(token) {
 }
 
 function Header({ navigation }) {
-    const { user, ChangeUser, setPayments, setHistory, setVehicles } = useUserStore()
+    const { user, ChangeUser, setPayments, setHistory, setVehicles, reserva, setReserva } = useUserStore()
 
     const showAlert = () =>
         Alert.alert(
@@ -52,7 +52,7 @@ function Header({ navigation }) {
                         setPayments([])
                         setHistory([])
                         setVehicles([])
-
+                        setReserva({})
                         navigation.navigate('Login');
                     },
                 }
@@ -61,6 +61,17 @@ function Header({ navigation }) {
                 cancelable: true,
             },
         );
+
+    //Permite apenas uma reserva ativa por vez
+    function handleClick() {
+        if (JSON.stringify(reserva) === '{}') {
+            navigation.navigate("BookVacancy")
+        }
+        else {
+            alert("Você já possui uma reserva.")
+            return
+        }
+    }
 
     return (
         <View style={styles.header}>
@@ -72,7 +83,7 @@ function Header({ navigation }) {
             </View>
             <View style={styles.headerRight}>
                 <Text style={{ marginEnd: 10, color: "white" }}> Reservar Vaga</Text>
-                <TouchableOpacity style={styles.bookButtom} onPress={()=>navigation.navigate("BookVacancy")}>
+                <TouchableOpacity style={styles.bookButtom} onPress={() => handleClick()}>
                     <AntDesign name="plus" size={18} color="white" />
                 </TouchableOpacity>
             </View>

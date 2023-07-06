@@ -23,10 +23,7 @@ export default function WalletScreen({ navigation }) {
                 console.log(response.status);
                 console.log(response.data)
                 let cartoes = response.data
-                setPayments(cartoes) //Defino como usuário ativo no momento.
-
-                //Se API retornar token, prossigo, senão, alerta de erro.
-                // navigation.navigate('Router')
+                setPayments(cartoes)
             })
             .catch(function (error) {
                 console.log("Erro ao recuperar métodos de pagamento: ")
