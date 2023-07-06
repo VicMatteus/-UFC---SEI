@@ -6,11 +6,11 @@ import Api from "../Api";
 import {ipv4} from '../enderecoBack.js';
 
 export default function AddVehicle({ navigation }) {
-    const [vehicleName, ChangeVehicleName] = React.useState('Subaru');
-    const [vehiclePlate, ChangeVehiclePlate] = React.useState('LEO-1234');
+    const [vehicleName, ChangeVehicleName] = React.useState('');
+    const [vehiclePlate, ChangeVehiclePlate] = React.useState('');
     const [clienteAtual, SetClienteAtual] = React.useState({});
 
-    const { user, ChangeUser, vehicles, setVehicles } = useUserStore();
+    const { vehicles, setVehicles } = useUserStore();
 
     React.useEffect(() => {
         fetch("http://" + ipv4 + ":3001/current_client")
@@ -53,11 +53,10 @@ export default function AddVehicle({ navigation }) {
                 console.log(response.status);
                 console.log(response.data);
                 let newVehicle = response.data
-                setVehicles([...vehicles, newVehicle]) //Defino como usuário ativo no momento.
+                setVehicles([...vehicles, newVehicle])
                 console.log(vehicles)
                 ChangeVehicleName("")
                 ChangeVehiclePlate("")
-                //Se API retornar token, prossigo, senão, alerta de erro.
                 navigation.navigate('Router')
             })
             .catch(function (error) {
@@ -83,11 +82,7 @@ export default function AddVehicle({ navigation }) {
                 maxLength={8}
                 placeholder='Placa do carro' />
 
-            {/*Faltando realizar validações e bater na api para logar e avançar para*/}
             <SuccessButton label={"Adicionar veículo"} navegarPara={() => enviarDados()} />
-
-
-
         </View>
     );
 }
@@ -109,7 +104,6 @@ const styles = StyleSheet.create({
         top: -100,
     },
     text: {
-        // fontFamily: 'Cochin', //Depois ver se é realmente necessário usar fontes diferentes, pq tem q importar.
         fontSize: 48,
         color: '#FFFFFF',
         textAlign: 'center',
