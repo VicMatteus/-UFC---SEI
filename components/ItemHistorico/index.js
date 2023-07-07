@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useUserStore } from "../../store";
 
 export default function ItemHistorico({ data, entrada, saida, veiculo, valor, id }) {
-    const {user, ChangeUser, payments, setPayments} = useUserStore();
 
     return (
         <TouchableOpacity style={styles.container} onPress={() => console.log('Item pressionado')}>

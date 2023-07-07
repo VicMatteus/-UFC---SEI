@@ -11,12 +11,11 @@ import LoginScreen from './screens/LoginScreen';
 import AddPaymentMethod from './screens/AddPaymentMethod';
 import AddVehicle from './screens/AddVehicle';
 import BookVacancy from './screens/BookingScreen';
-import { useUserStore } from './store';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
-    
+
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{

@@ -5,16 +5,6 @@ import ItemHistorico from "../components/ItemHistorico";
 import { useUserStore } from "../store";
 import Api from "../Api";
 
-/**
-    cost: campo numérico de ponto flutuante que armazena o custo da movimentação do veículo.
-    vehicle_id: campo numérico inteiro de identificação do veículo associado à movimentação.
-    client_id: campo numérico inteiro de identificação do cliente associado à movimentação.
-    created_at: campo de data e hora que registra o momento em que o registro da movimentação foi criado.
-    updated_at: campo de data e hora que registra o momento em que o registro da movimentação foi atualizado.
- */
-
-// {"client_id": 1, "cost": 40.39, "created_at": "2023-07-06T21:17:47.387Z", "entry": "2022-07-14T00:53:22.726Z", "exit": "2023-02-26T03:19:53.895Z", "id": 1, "updated_at": "2023-07-06T21:17:47.387Z", "vehicle_id": 2}
-
 export default function HistoryScreen({ navigation }) {
     const { history, setHistory } = useUserStore();
 
