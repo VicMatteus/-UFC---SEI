@@ -16,17 +16,7 @@ import { useUserStore } from './store';
 const Stack = createNativeStackNavigator();
 
 function App() {
-    //Depois substituir pelo zustand
-    // const { user, ChangeUser, setPayments, setHistory, setVehicles, setReserva } = useUserStore()
-
-    // React.useEffect(() => {
-    //     return () => {
-    //         setPayments([])
-    //         setHistory([])
-    //         setVehicles([])
-    //         setReserva({})
-    //     }
-    // }, [])
+    
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { useUserStore } from "../../store";
 
-export default function ItemHistorico({ data, entrada, saida, veiculo, valor }) {
+export default function ItemHistorico({ data, entrada, saida, veiculo, valor, id }) {
     const {user, ChangeUser, payments, setPayments} = useUserStore();
 
     return (
@@ -24,12 +24,13 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 10,
         width: '100%',
-        height: 100,
+        height: 80,
         alignItems: 'flex-start',
         borderColor: '#FFFFFF',
         borderWidth: 2,
         borderRadius: 10,
         padding: 12,
+        justifyContent: 'space-between',
     },
     linha1: {
         flexDirection: 'row',
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     info: {
         color: '#FFFFFF',
         // backgroundColor: 'gray',
-        fontSize: 20
+        fontSize: 13
     },
     statusAtivo: {
         color: 'green',

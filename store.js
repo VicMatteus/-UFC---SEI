@@ -9,7 +9,7 @@ export const useUserStore = create((set) => ({
     setReserva:(newReserva)=>set({reserva:newReserva}),
     isDrawerOpen: false,
     toggleDrawer: () => set((state)=>{isDrawerOpen: !state.isDrawerOpen}),
-    history:[{data:'13/12/2011', entrada: 'entrada', saida:'saida', veiculo: 'onix', valor:'12.23'}],
+    history:[],
     setHistory:(history) => set({history:history}),
     vehicles:[],
     setVehicles: (newVehicle) => set({vehicles:newVehicle}),

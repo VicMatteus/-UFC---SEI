@@ -44,7 +44,7 @@ function HomeScreen({ navigation }) {
                     vacancyDetails: vacancyInfo,
                     parkingDetails: parkingInfo
                 }
-                console.log(detalhesReserva);
+                // console.log(detalhesReserva);
                 setReserva(detalhesReserva)
 
             } catch (error) {
